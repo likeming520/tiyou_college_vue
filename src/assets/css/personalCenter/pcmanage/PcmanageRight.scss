@@ -1,0 +1,105 @@
+.exam-main{
+    height: 850px;
+    width: 100%;
+
+    .exam-type{
+        margin: 0 auto;
+        width: 95%;
+        height: 45px;
+        background: #f8f8f8;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 20px;
+
+        font-size: 9px;
+
+        .left{
+            display: flex;
+            margin-left: 30px;
+
+            .btntype{
+                width: 64px;
+                height: 24px;
+                background: #ffffff;
+                border-radius: 4px;
+                font-size: 14px;
+                font-family: PingFang SC, PingFang SC-Regular;
+                font-weight: 400;
+                color: #00bda5;
+                text-align: center;
+            }
+            span{
+                color: #393939;
+                width: 159px;
+                height: 16px;
+                font-size: 16px;
+                font-family: PingFang SC, PingFang SC-Regular;
+                font-weight: 400;
+                text-align: left;
+                color: #393939;
+                line-height: 20px;
+                margin-left: 30px;
+            }
+        }
+        .right{
+            padding-left: 50px;
+            display: flex;
+            span{
+                color: #747474;
+                font-size: 14px;
+                line-height: 20px;
+                cursor: pointer;
+            }
+
+            img{
+                width: 12px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+            .dele{
+                margin-left: 40px;
+                margin-right: 40px; 
+            }
+        }
+        
+    }
+
+    .exam-content{
+        padding-left: 50px;
+
+        div{
+            margin-top: 10px;
+        }
+
+        .exam-title{
+            font-size: 14px;
+        }
+
+        .exam-opt{
+            cursor: pointer;
+            line-height: 40px;
+            padding-left: 35px;
+            width: 35%;
+            height: 40px;
+            background: #f8f8f8;
+            color: #00bda5;;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        // .exam-opt:hover{
+        //     background: #00bda5;
+        //     opacity: 0.12;
+        // }
+        // .exam-opt:focus{
+        //     background: #00bda5;
+        //     opacity: 0.12;
+        // }
+        .exam-analy
+        {
+            font-size: 14px;
+            color: #767676;
+        }
+    }
+}
