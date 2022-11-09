@@ -1,3 +1,55 @@
+// 试题顶部按钮
+.right-top{
+    font-size: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+    flex-wrap: wrap;
+}
+.right-top>span{
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC-Regular;
+    font-weight: 400;
+    text-align: left;
+    color: #393939;
+    line-height: 36px;
+}
+.right-top >>> .el-button--primary{
+    background-color:#00BDA5;
+    border-color: #00BDA5;
+    height: 28px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding:0;
+    width: 54px;
+}
+.right-top >>> .el-button--danger{
+    height: 28px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding:0;
+    width: 54px;
+}
+.right-top >>> .el-input__inner{
+    height: 28px;
+  }
+.right-top >>>  .el-input__clear{
+    display: flex;
+    align-items: center;
+    margin-right: 35px;
+}
+.line{
+    margin: 0 auto;
+    width: 90%;
+    background: #f8f8f8;
+    height: 1px;
+    margin-top: 10px;
+}
+
+// 试题部分
 .exam-main{
     height: 850px;
     width: 100%;

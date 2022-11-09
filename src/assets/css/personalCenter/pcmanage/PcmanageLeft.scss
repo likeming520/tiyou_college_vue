@@ -1,0 +1,26 @@
+.left-top{
+    margin: 0;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 10px;  //可以去除app.vue的干扰
+}
+.left-top >>> .el-button--primary{
+    background-color:#00BDA5;
+    width: 92px;
+    height: 28px;
+    border-color: #00BDA5;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding:0;
+}
+img{
+    width: 16px;
+    height: 16px;
+}
+.line{
+    margin: 0 auto;
+    width: 90%;
+    background: #f8f8f8;
+    height: 1px;
+    margin-top: 10px;
+}
