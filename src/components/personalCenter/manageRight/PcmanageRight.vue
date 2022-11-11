@@ -18,7 +18,7 @@
 
     <div class="exam-main">
       <!-- 循环  判断是单选题还是多选题类型 只需对接数据即可 -->
-      <div v-for="item in extype">
+      <div v-for="(item,index) in extype">
         <div class="exam-type">
           <div class="left">
             <div class="btntype">{{ item.type }}</div>
@@ -26,7 +26,7 @@
           </div>
           <div class="right">
             <div class="edit"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span>编辑</span></div>
-            <div class="dele"><img src="../../../../static/tuImg/shanchu@2x.png" alt=""><span>删除</span></div>
+            <div @click="del(index)" class="dele"><img src="../../../../static/tuImg/shanchu@2x.png" alt=""><span>删除</span></div>
           </div>
         </div>
 
@@ -36,8 +36,8 @@
             1、在html中，通过xxxxxxxxx
           </div>
           <!-- 选项 -->
-          <div v-for="item in activities" class="exam-opt" @click="change($event)" :ac="activities.as">
-            {{ item.content }}、{{ item.data }}
+          <div v-for="opt in activities" class="exam-opt" @click="change($event)" :ac="activities.as">
+            {{ opt.content }}、{{ opt.data }}
           </div>
           <div class="exam-analy">
             解析：这是一条解析
@@ -51,11 +51,13 @@
 
 <script>
 import AddQuestions from "./AddQuestions";
+import API from '@/api'
 
 export default {
   name: "pcmanageRight",
   components: {
-    AddQuestions
+    AddQuestions,
+    API,
   },
   data() {
     return {
@@ -88,6 +90,9 @@ export default {
       ]
     };
   },
+  mounted() { //mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
+    this.header.token=this.$cookie.get('access_Token')
+  },
   methods:{
     openAddQuestions(){
       this.showAddQuestions=true
@@ -101,7 +106,12 @@ export default {
     },
     init(){
       //TODO:请求获取数据列表
-    }
+    },
+    del(index) {
+        // this.activities.splice(val, 1);
+        this.extype.splice(index, 1);
+    },
+
   }
   // methods: {
   //     change(event) {
