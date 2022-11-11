@@ -20,7 +20,6 @@ export default {
   check,
   skill,
   practice,
-  exam,
   spestandard,
   exam,
   spesource,

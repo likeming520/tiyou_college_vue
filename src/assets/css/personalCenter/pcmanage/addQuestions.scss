@@ -1,0 +1,247 @@
+/*模态框样式*/
+.base_addQuestions >>> .el-dialog{
+  border-radius: 4px;
+  min-height: 830px;
+}
+.base_addQuestions >>> .el-dialog__header{
+  display: flex;
+  padding-left: 30px;
+  padding-top: 24px;
+  padding-bottom: 0;
+}
+
+.base_addQuestions >>> .el-dialog__title{
+  border-bottom: 4px solid #00bda5;
+  font-size: 16px;
+  font-family: PingFang SC, PingFang SC-Medium;
+  font-weight: 500;
+  text-align: left;
+  color: #3f3f3f;
+  padding-bottom: 12px;
+}
+.base_addQuestions >>> .el-dialog__body{
+  padding-top: 31px;
+  padding-left: 44px;
+  padding-right: 44px;
+  padding-bottom: 21px;
+}
+
+/*下拉菜单样式*/
+.dropdown >>>.el-button{
+  height: 28px;
+  padding:0;
+  width: 100px;
+}
+
+.dropdown>>>.el-button--primary{
+  background: #00bda5;
+  border-radius: 4px;
+  border-color: #00BDA5;
+}
+/*底部按钮样式*/
+.footer{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 14px;
+}
+.footer >>> .el-button{
+  height: 28px;
+  width: 84px;
+  padding:0;
+}
+.footer >>> .el-button--primary{
+  background-color:#00BDA5;
+  border-color: #00BDA5;
+}
+
+.footer >>> .dis{
+  background: #c5c5c5;
+  border-color: #c5c5c5;
+}
+/*滚动条样式*/
+.question_container::-webkit-scrollbar-track{
+  background-color: white;
+}
+.question_container::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 2px;
+  background-color: white;
+}
+.question_container::-webkit-scrollbar-thumb {
+  background-color: #f1f1f1;
+}
+
+/*题目样式*/
+.question_container{
+  height: 650px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  .question{
+    .question_type{
+      padding: 0 16px;
+      padding-bottom: 13px;
+      padding-top: 14px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .title{
+        width: 42px;
+        height: 14px;
+        font-size: 14px;
+        font-family: PingFang SC, PingFang SC-Regular;
+        font-weight: 400;
+        text-align: left;
+        color: #252525;
+      }
+      .dele{
+        font-size: 14px;
+        font-family: PingFang SC, PingFang SC-Regular;
+        font-weight: 400;
+        text-align: left;
+        color: #747474;
+        cursor: pointer;
+        img{
+          width: 14px;
+          margin-right: 11px;
+        }
+      }
+    }
+    .question_form{
+      width: 814px;
+      border: 1px dashed #efefef;
+      border-radius: 4px;
+      padding: 14px;
+      box-sizing: border-box;
+    }
+  }
+}
+.question_form{
+  .left{
+    display: flex;
+    flex-direction: column;
+    width: 536px;
+    .top{
+      display: flex;
+      .description{
+        width: 420px;
+        margin-right: 11px;
+      }
+    }
+    .description>>>.el-textarea__inner{
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .option >>> .el-button{
+      height: 28px;
+      width: 88px;
+      padding:0;
+    }
+    .option >>> .el-button--primary{
+      background-color:#00BDA5;
+      border-color: #00BDA5;
+    }
+
+    .option >>> .el-input{
+      border: none;
+      height: 24px;
+      padding: 0;
+      width: 450px;
+      border-radius: 0;
+    }
+    .option >>> .el-input__inner{
+      border: none;
+      height: 24px;
+      padding: 0;
+      width: 450px;
+      border-radius: 0;
+    }
+    .option .answer{
+      display: block;
+      height: 28px;
+      margin:0;
+      margin-bottom: 12px;
+      margin-right: 4px;
+      .cha{
+        width: 16px;
+        height: 16px;
+        background: #ededed;
+        color: white;
+        border-radius: 50%;
+        display: inline-block;
+        text-align: center;
+        line-height: 16px;
+        font-weight: normal;
+        cursor: pointer;
+      }
+    }
+  }
+  .right{
+    width: 240px;
+    height: 100%;
+    .analysis{
+      height: 100%;
+      .input{
+        height: 100%;
+      }
+    }
+    .analysis >>>.el-textarea__inner{
+      height: 94%;
+    }
+    .analysis >>>.el-textarea{
+      height: 94%;
+    }
+  }
+
+
+  .item{
+    span{
+      color: red;
+    }
+    .input{
+      padding: 14px 0;
+    }
+  }
+}
+
+/*上传文件样式*/
+.uploader>>>.el-upload{
+  width: 100px;
+  height: 64px;
+}
+.uploader{
+  margin-top: 32px;
+  width: 100px;
+  height: 64px;
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .jia{
+    width: 12px;
+    height: 12px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+    margin-top: 12px;
+  }
+  .txt{
+    margin-top: -3px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC-Regular;
+    font-weight: 400;
+    text-align: center;
+    color: #9b9b9b;
+  }
+}
+
+
+
+
+
+
+
+

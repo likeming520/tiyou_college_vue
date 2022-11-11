@@ -147,3 +147,11 @@ export function doDeleteQuestionTags(params) {
     data: requestParam(params)
   })
 }
+
+export function saveSkillQuestionBatch(params){
+  return request({
+    url: requestUrl('/hyskillquestion/saveSkillQuestionBatch'),
+    method: 'post',
+    data: requestParam(params)
+  })
+}
