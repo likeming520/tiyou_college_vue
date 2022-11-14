@@ -13,6 +13,7 @@ import * as pcCourseDirFileExameEdit from './modules/pcCourseSource/pcCourseDirF
 import * as accountManage from './modules/stuPersonalCore/accountManage'
 import * as pcCourseFileMark from './modules/pcCourseSource/pcCourseFileMark'
 import * as myCollection from './modules/stuPersonalCore/myCollection'
+import * as pcmanageRight from './modules/pcCourseSource/pcmanageRight'
 export default {
   common,     // 公共（登入，登出，菜单等）
   user,
@@ -29,4 +30,5 @@ export default {
   accountManage, // 学生个人中心-账号管理
   pcCourseFileMark,
   myCollection, // 学生个人中心-我的收藏
+  pcmanageRight,
 }
