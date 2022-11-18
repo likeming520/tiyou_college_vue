@@ -6,26 +6,26 @@
         <el-input v-model="querySourceName" placeholder="请输入"
                   style="height:28px; width: 300px;border: 1px solid #f8f8f8;" clearable></el-input>
         <img style="width: 20px;height: 20px;position: relative;top: 5px;right: 42px;cursor: pointer;"
-             :src="$imghost+'/personalCenter/pcCourseSource/sourceSearch.png'" @click="">
+             :src="$imghost+'/personalCenter/pcCourseSource/sourceSearch.png'">
       </div>
       <div>
-        <el-button type="primary" @click="" style=" width: 80px;" @click="openAddQuestions">添加试题</el-button>
-        <el-button type="primary" @click="" style=" width: 80px;">批量导入</el-button>
-        <el-button type="danger" @click="" style=" width: 80px;">全部删除</el-button>
+        <el-button type="primary" style=" width: 80px;" @click="openAddQuestions">添加试题</el-button>
+        <el-button type="primary" style=" width: 80px;">批量导入</el-button>
+        <el-button type="danger" style=" width: 80px;">全部删除</el-button>
       </div>
       <div class="line"></div>
     </div>
 
     <div class="exam-main">
       <!-- 循环  判断是单选题还是多选题类型 只需对接数据即可 -->
-      <div v-for="(item,index) in extype">
+      <div v-for="(item,index) in extype" :key="item">
         <div class="exam-type">
           <div class="left">
             <div class="btntype">{{ item.type }}</div>
             <span>王佳欣&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2022.02.18</span>
           </div>
           <div class="right">
-            <div class="edit"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span>编辑</span></div>
+            <div class="edit" @click="edit(item.id)"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span @click="openEditQuestion">编辑</span></div>
             <div @click="del(index)" class="dele"><img src="../../../../static/tuImg/shanchu@2x.png" alt=""><span>删除</span></div>
           </div>
         </div>
@@ -36,7 +36,7 @@
             1、在html中，通过xxxxxxxxx
           </div>
           <!-- 选项 -->
-          <div v-for="opt in activities" class="exam-opt" @click="change($event)" :ac="activities.as">
+          <div v-for="opt in activities" class="exam-opt" @click="change($event)" :key="opt" :ac="activities.as">
             {{ opt.content }}、{{ opt.data }}
           </div>
           <div class="exam-analy">
@@ -46,22 +46,26 @@
       </div>
     </div>
     <AddQuestions :show="showAddQuestions" @cancel="closeAddQuestions" @confirm="confirmAddQuestion"/>
+    <PcEditQuestion :show="showEditQuestion" @cancel="closeEditQuestion" @confirt="confirmEditQuestion" />
   </div>
 </template>
 
 <script>
 import AddQuestions from "./AddQuestions";
+import PcEditQuestion from "../manageLeft/PcEditQuestion";
 import API from '@/api'
 
 export default {
   name: "pcmanageRight",
   components: {
     AddQuestions,
+    PcEditQuestion,
     API,
   },
   data() {
     return {
       showAddQuestions:false,
+      showEditQuestion: false,
       activities: [
         {
           content: "A",
@@ -110,6 +114,12 @@ export default {
     del(index) {
         // this.activities.splice(val, 1);
         this.extype.splice(index, 1);
+    },
+    openEditQuestion(){
+      this.showEditQuestion=true
+    },
+    closeEditQuestion(){
+      this.showEditQuestion=false
     },
 
   }
