@@ -26,7 +26,7 @@
             <div class="btntype" v-if="item.questionType ==2">多选题</div>
             <div class="btntype" v-if="item.questionType ==3">判断题</div>
             <div class="btntype" v-if="item.questionType ==4">填空题</div>
-            <span>{{item.createUserRealName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.modifiedTimeStr}}</span>
+            <div class="name">{{item.createUserRealName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.modifiedTimeStr}}</div>
           </div>
           <div class="right">
             <div class="edit"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span>编辑</span></div>
@@ -39,7 +39,7 @@
           <div class="exam-title">{{index+1}}.&nbsp;&nbsp;{{item.questionDescription}}</div>
           <!-- 选项 -->
           <div v-for="option in item.options" class="exam-opt" :class="addClass(option.answerFlag)" >
-            <span :class="optionaddClass(option.answerFlag)">{{ option.questionOption }}</span>&nbsp;&nbsp;&nbsp;{{ option.optionContent }}
+            <span :class="optionaddClass(option.answerFlag)">{{ option.questionOption }}</span>&nbsp;&nbsp;&nbsp;<span>{{ option.optionContent }}</span>
           </div>
           <div class="exam-analy">
             解析：{{item.questionAnalysis}}
