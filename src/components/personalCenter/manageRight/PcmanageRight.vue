@@ -21,21 +21,24 @@
       <div v-for="(item,index) in list">
         <div class="exam-type">
           <div class="left">
-            <div class="btntype">{{ item.questionType }}</div>
+            <div class="btntype" v-if="item.questionType ==1">单选题</div>
+            <div class="btntype" v-if="item.questionType ==2">多选题</div>
+            <div class="btntype" v-if="item.questionType ==3">判断题</div>
+            <div class="btntype" v-if="item.questionType ==4">填空题</div>
             <span>{{item.createUserRealName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.modifiedTimeStr}}</span>
           </div>
           <div class="right">
             <div class="edit"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span>编辑</span></div>
-            <div @click="del(index)" class="dele"><img src="../../../../static/tuImg/shanchu@2x.png" alt=""><span>删除</span></div>
+            <div @click="del(item.id)" class="dele"><img src="../../../../static/tuImg/shanchu@2x.png" alt=""><span>删除</span></div>
           </div>
         </div>
 
         <!-- 题目部分 标题 选项 解析 -->
         <div class="exam-content">
-          <div class="exam-title">{{index+1}}、{{item.questionDescription}}</div>
+          <div class="exam-title">{{index+1}}.&nbsp;&nbsp;{{item.questionDescription}}</div>
           <!-- 选项 -->
-          <div v-for="option in item.options" class="exam-opt" >
-            {{ option.questionOption }}、{{ option.optionContent }}
+          <div v-for="option in item.options" class="exam-opt" :class="addClass(option.answerFlag)" >
+            <span :class="optionaddClass(option.answerFlag)">{{ option.questionOption }}</span>&nbsp;&nbsp;&nbsp;{{ option.optionContent }}
           </div>
           <div class="exam-analy">
             解析：{{item.questionAnalysis}}
@@ -51,6 +54,7 @@
 import AddQuestions from "./AddQuestions";
 import API from '@/api'
 import {listPageSkillQuestionsByDirId} from "@/api/modules/pcCourseSource/pcmanageRight"
+import {deletetim} from "@/api/modules/question/question_manage"
 
 export default {
   name: "pcmanageRight",
@@ -102,10 +106,35 @@ export default {
     },
     init(){
       //TODO:请求获取数据列表
+      this.listPageSkillQuestionsByDirId();
     },
-    del(index) {
-        // this.activities.splice(val, 1);
-        this.list.splice(index, 1);
+    del(id) {
+      console.log(id);
+      deletetim({"questionId": id}).then((result) => {
+        console.log(result);
+        if(result && result.data.code == 0) {
+          this.$message.success("删除成功")
+          this.listPageSkillQuestionsByDirId()
+        }else {
+          this.$message.error("删除失败")
+        }
+      })
+    },
+    addClass(i) {
+      switch(i){
+        case 1:
+          return 'exam-opted';
+        case 2:
+          return 'exam-opt'
+      }
+    },
+    optionaddClass(i){
+      switch(i){
+        case 1:
+          return 'opted';
+        case 2:
+          return ''
+      }
     },
     async listPageSkillQuestionsByDirId(){
       let params = {

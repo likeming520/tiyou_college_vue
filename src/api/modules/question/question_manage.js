@@ -84,7 +84,7 @@ export function doGetHasQuestionsKnowledge(params) {
 /**删除试题*/
 export function deletetim(params) {
   return request({
-    url:requestUrl('/xqquestion/delete'),
+    url:requestUrl('/hyskillquestion/deleteSkillQuestion'),
     method:'post',
     data:requestParam(params)
   })
