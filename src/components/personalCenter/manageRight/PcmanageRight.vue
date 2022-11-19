@@ -116,7 +116,7 @@ export default {
       const  { data } =  await API.pcmanageRight.listPageSkillQuestionsByDirId(params)
 
       this.list = data.page.list;
-      console.log(this.list);
+      console.log(this.list); 
     },
   },
 }
