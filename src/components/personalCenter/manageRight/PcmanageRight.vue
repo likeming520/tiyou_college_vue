@@ -25,7 +25,7 @@
             <span>王佳欣&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2022.02.18</span>
           </div>
           <div class="right">
-            <div class="edit" @click="edit(item.id)"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span @click="openEditQuestion">编辑</span></div>
+            <div class="edit"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span @click="openEditQuestion(item)">编辑</span></div>
             <div @click="del(index)" class="dele"><img src="../../../../static/tuImg/shanchu@2x.png" alt=""><span>删除</span></div>
           </div>
         </div>
@@ -46,7 +46,8 @@
       </div>
     </div>
     <AddQuestions :show="showAddQuestions" @cancel="closeAddQuestions" @confirm="confirmAddQuestion"/>
-    <PcEditQuestion :show="showEditQuestion" @cancel="closeEditQuestion" @confirt="confirmEditQuestion" />
+    
+    <PcEditQuestion :show="showEditQuestion" :question="question" @cancel="closeEditQuestion" @confirt="confirmEditQuestion" />
   </div>
 </template>
 
@@ -54,6 +55,7 @@
 import AddQuestions from "./AddQuestions";
 import PcEditQuestion from "../manageLeft/PcEditQuestion";
 import API from '@/api'
+import { doGetQuestion } from "../../../api/modules/question_bank/menu";
 
 export default {
   name: "pcmanageRight",
@@ -66,6 +68,9 @@ export default {
     return {
       showAddQuestions:false,
       showEditQuestion: false,
+      question: {
+
+      },
       activities: [
         {
           content: "A",
@@ -115,7 +120,17 @@ export default {
         // this.activities.splice(val, 1);
         this.extype.splice(index, 1);
     },
-    openEditQuestion(){
+    openEditQuestion(question){
+      // doGetQuestion({"skillResourcesId": 1}).then((result) => {
+      //   if(result && result.code == "0"){
+
+      //   }
+      // }).catch((err) => {
+        
+      // });
+      console.log("errrrrrrrrrrrr");
+      console.log(question);
+      this.question = question;
       this.showEditQuestion=true
     },
     closeEditQuestion(){

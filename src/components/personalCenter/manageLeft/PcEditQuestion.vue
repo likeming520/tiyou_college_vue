@@ -5,8 +5,8 @@
                 :close-on-press-escape="false"
                 :before-close="cancel">
       <div class="question_main">
-        <!-- <div class="dropdown" style="padding-bottom: 6px">
-          <el-dropdown @command="add">
+        <div class="dropdown" style="padding-bottom: 6px">
+          <!-- <el-dropdown @command="add">
             <el-button type="primary">
               新增题目&nbsp;<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
@@ -16,8 +16,8 @@
               <el-dropdown-item :command="2">多选题</el-dropdown-item>
               <el-dropdown-item :command="3">判断题</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
-        </div> -->
+          </el-dropdown> -->
+        </div>
         <div class="question_container" ref="scroll">
           <template v-for="(q,i) in form">
             <div class="question" :key="i">
@@ -142,7 +142,7 @@ import API from '@/api'
 import {saveSkillQuestionBatch} from '@/api/modules/question/question_manage'
 
 export default {
-  name: "AddQuestions",
+  name: "EditQuestions",
   props:['show'],
   data() {
     return {
@@ -154,6 +154,7 @@ export default {
       form: []
     }
   },
+  props: ['question'],
   mounted() { //mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
     this.header.token = this.$cookie.get('access_Token')
   },
@@ -225,6 +226,7 @@ export default {
       this.form = [...this.form, obj]
       // this.scrollToBottom()
     },
+
     check(val, i, j) {
       let type = this.form[i].question.questionType
       console.log(val,i,j)

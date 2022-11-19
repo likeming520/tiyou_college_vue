@@ -9,3 +9,11 @@ export function doGetMenu(param) {
     data: requestParam(param)
   })
 }
+
+export function doGetQuestion(param) {
+  return request({
+    url: requestUrl('/'),
+    method: "POST",
+    data: requestParam(param)
+  })
+}
