@@ -13,7 +13,7 @@
         </div>
 
         <div class="main_dir3" v-if="dirList.length>0">
-          <div   v-for="(item1,index) in dirList">
+          <div v-for="(item1,index) in dirList">
             <!--  一级目录列表 -->
             <div class="main_dir_line" @mouseover="msover_dir(item1.id)" @mouseout="msout_dir(item1.id)">
               <div class="main_dir_line_icon">
