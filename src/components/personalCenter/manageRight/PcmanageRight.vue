@@ -41,8 +41,6 @@
             解析：{{item.questionAnalysis}}
           </div>
         </div>
-
-
       </div>
     </div>
     <AddQuestions :show="showAddQuestions" @cancel="closeAddQuestions" @confirm="confirmAddQuestion"/>
