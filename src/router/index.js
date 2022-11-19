@@ -47,7 +47,11 @@ const myRouter =new Router({
         next("/homeindex")
       }
     },
-
+    {
+      path: "/myedit",
+      name: "edit",
+      component: () => import("../components/personalCenter/manageLeft/PcEditQuestion.vue")
+    },
     {path: '/login',
       name: 'Login',
       component:Login,

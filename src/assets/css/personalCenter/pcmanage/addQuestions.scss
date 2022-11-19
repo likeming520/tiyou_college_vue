@@ -110,10 +110,10 @@
       }
     }
     .question_form{
-      width: 814px;
+      width: 798px;
       border: 1px dashed #efefef;
       border-radius: 4px;
-      padding: 14px;
+      padding: 15px 12px 18px 16px;
       box-sizing: border-box;
     }
   }
@@ -122,22 +122,23 @@
   .left{
     display: flex;
     flex-direction: column;
-    width: 536px;
+    width: 532px;
+    margin-right: 12px;
     .top{
       display: flex;
       .description{
         width: 420px;
-        margin-right: 11px;
       }
     }
     .description>>>.el-textarea__inner{
-      padding-top: 10px;
-      padding-bottom: 10px;
+      padding: 6px 12px;
+      height: 64px;
     }
     .option >>> .el-button{
       height: 28px;
       width: 88px;
       padding:0;
+      margin-right: 4px;
     }
     .option >>> .el-button--primary{
       background-color:#00BDA5;
@@ -147,15 +148,14 @@
     .option >>> .el-input{
       border: none;
       height: 24px;
-      padding: 0;
-      width: 450px;
+      width: 440px;
       border-radius: 0;
     }
     .option >>> .el-input__inner{
       border: none;
       height: 24px;
-      padding: 0;
-      width: 450px;
+      padding: 2px;
+      width: 440px;
       border-radius: 0;
     }
     .option .answer{
@@ -164,6 +164,7 @@
       margin:0;
       margin-bottom: 12px;
       margin-right: 4px;
+      padding-left: 8px;
       .cha{
         width: 16px;
         height: 16px;
@@ -179,7 +180,7 @@
     }
   }
   .right{
-    width: 240px;
+    width: 224px;
     height: 100%;
     .analysis{
       height: 100%;
@@ -188,6 +189,7 @@
       }
     }
     .analysis >>>.el-textarea__inner{
+      padding: 6px 12px;
       height: 94%;
     }
     .analysis >>>.el-textarea{
@@ -212,6 +214,7 @@
   height: 64px;
 }
 .uploader{
+  margin-left: 12px;
   margin-top: 32px;
   width: 100px;
   height: 64px;

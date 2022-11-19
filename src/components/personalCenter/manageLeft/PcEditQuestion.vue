@@ -1,15 +1,14 @@
 <template>
   <div class="base_addQuestions">
-    <el-dialog title="添加试题" width="900px" top="84px" :visible.sync="show"
+    <el-dialog title="编辑试题" width="900px" top="84px" :visible.sync="show"
                :close-on-click-modal="false"
-               :close-on-press-escape="false"
-               :before-close="cancel">
+                :close-on-press-escape="false"
+                :before-close="cancel">
       <div class="question_main">
-        <!--        下拉选项按钮 start-->
-        <div class="dropdown" style="margin-bottom: 6px;">
-          <el-dropdown @command="add">
+        <div class="dropdown" style="padding-bottom: 6px">
+          <!-- <el-dropdown @command="add">
             <el-button type="primary">
-              &nbsp;&nbsp;&nbsp;新增题目<i class="el-icon-arrow-down el-icon--right"></i>&nbsp;
+              新增题目&nbsp;<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item :command="1">单选题</el-dropdown-item>
@@ -17,10 +16,8 @@
               <el-dropdown-item :command="2">多选题</el-dropdown-item>
               <el-dropdown-item :command="3">判断题</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
         </div>
-        <!--        下拉选项按钮 end-->
-        <!--  题目 start      -->
         <div class="question_container" ref="scroll">
           <template v-for="(q,i) in form">
             <div class="question" :key="i">
@@ -40,14 +37,11 @@
                       <div class="label">
                         <span>*</span>题目：
                       </div>
-                      <!--                    题干 start-->
                       <div class="input">
                         <el-input type="textarea" resize="none" v-model.trim="q.question.questionDescription" rows="2"
                                   placeholder="请输入题目"></el-input>
                       </div>
-                      <!--                    题干 end-->
                     </div>
-                    <!--                    上传图片 start-->
                     <div class="uploader">
                       <el-upload
                         :action="uploadImgUrl"
@@ -66,14 +60,11 @@
                           </div>
                           <div class="txt">添加图片</div>
                         </div>
-                        <img v-if="q.optionImgs[0].questionImg!==''" :src="webUrl(q.optionImgs[0].questionImg)"
-                             style="width: 100px;height: 64px;">
+                        <img v-if="q.optionImgs[0].questionImg!==''" :src="webUrl(q.optionImgs[0].questionImg)" style="width: 100px;height: 64px;">
                       </el-upload>
                     </div>
-                    <!--                    上传图片 end-->
-
                   </div>
-                  <!--                  选项 start-->
+
                   <div class="option item">
                     <div class="label" v-if="q.question.questionType===4">
                       <span>*</span>答案选项：
@@ -81,7 +72,7 @@
                     <div class="label" v-else>
                       <span>*</span>参考答案：
                     </div>
-                    <div class="input">
+                    <div class="input" style="padding-left: 8px;">
                       <div class="answer" :style="{
                          borderBottom: q.question.questionType!==3?'1px solid #efefef':'none'
                       }" v-for="(item,index) in q.options" :key="index">
@@ -99,11 +90,11 @@
                         <span style="color: #252525;margin-left: 10px" v-else>{{ item.optionContent }}</span>
                         <span class="cha" @click="deleteOption(i,index)"
                               v-if="q.question.questionType!==3&&q.question.questionType!==4">
-                          ×
+                          x
                         </span>
                         <span class="cha" @click="deleteOption(i,index)"
                               v-if="q.question.questionType===4&&q.options.length>1">
-                          ×
+                          x
                         </span>
                       </div>
 
@@ -115,11 +106,9 @@
                     </div>
                   </div>
 
-                  <!--                  选项 end-->
 
                 </div>
                 <div class="right">
-                  <!--                  题目解析 start-->
                   <div class="analysis item">
                     <div class="label">
                       题目解析：
@@ -129,15 +118,11 @@
                                 v-model.trim="q.question.questionAnalysis"></el-input>
                     </div>
                   </div>
-                  <!--                  题目解析 end-->
-
                 </div>
               </div>
             </div>
           </template>
         </div>
-        <!--  题目 end      -->
-        <!--        底部按钮 start-->
         <div class="footer">
           <el-button style="height: 28px;" @click="cancel">取消</el-button>
           <el-button type="primary" :class="{
@@ -146,7 +131,6 @@
                      @click="submitForm" :disabled="form.length===0">确定
           </el-button>
         </div>
-        <!--        底部按钮 end-->
       </div>
     </el-dialog>
   </div>
@@ -158,8 +142,8 @@ import API from '@/api'
 import {saveSkillQuestionBatch} from '@/api/modules/question/question_manage'
 
 export default {
-  name: "AddQuestions",
-  props: ['show'],
+  name: "EditQuestions",
+  props:['show'],
   data() {
     return {
       imghost: this.$imghost,
@@ -170,6 +154,7 @@ export default {
       form: []
     }
   },
+  props: ['question'],
   mounted() { //mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
     this.header.token = this.$cookie.get('access_Token')
   },
@@ -185,7 +170,6 @@ export default {
     // scrollToBottom(){
     //   this.$refs.scroll.scrollTop=this.$refs.scroll.scrollHeight
     // },
-    //添加试题
     add(command) {
       const obj = {
         question: {
@@ -242,19 +226,18 @@ export default {
       this.form = [...this.form, obj]
       // this.scrollToBottom()
     },
-    //勾选答案
+
     check(val, i, j) {
       let type = this.form[i].question.questionType
-      console.log(val, i, j)
+      console.log(val,i,j)
       if (type === 1 || type === 3) {
         this.form[i].options.forEach((item, index) => {
-          if (index !== j && val === 1) {
+          if (index !== j&&val===1) {
             item.answerFlag = val === 2 ? 1 : 2
           }
         })
       }
     },
-    //添加选项
     addOption(i) {
       let type = this.form[i].question.questionType
       if (this.form[i].options.length >= 6) {
@@ -281,7 +264,6 @@ export default {
         this.form[i].question.answerUniqueStatus = 1
       }
     },
-    //删除选项
     deleteOption(i, j) {
       let type = this.form[i].question.questionType
       if (type === 1 || type === 2) {
@@ -297,45 +279,43 @@ export default {
         this.form[i].question.answerUniqueStatus = 0
       }
     },
-    //删除题目
     del(i) {
       this.form = this.form.filter((item, index) => {
         return index !== i
       })
     },
-    //取消
-    cancel() {
-      this.form = []
+    cancel(){
+      this.form=[]
       this.$emit('cancel')
     },
-    //确认提交表单
     submitForm() {
-      for (let item of this.form) {
-        if (!item.question.questionDescription) {
+      for(let item of this.form){
+        if(!item.question.questionDescription){
           this.$message.error("题目还未填写")
           return
         }
-        for (let i of item.options) {
-          if (!i.optionContent) {
+        for (let i of item.options){
+          if(!i.optionContent){
             this.$message.error("选项还未填写")
             return
           }
         }
-        let hasAnswer = item.options.some((item, index) => {
-          return item.answerFlag === 1
+        let hasAnswer=item.options.some((item,index)=>{
+          return item.answerFlag===1
         })
-        if (!hasAnswer) {
+        if (!hasAnswer){
           this.$message.error("请指明正确答案")
           return
         }
       }
 
-      saveSkillQuestionBatch(this.form).then(({data}) => {
-        if (data.code === 0) {
+      saveSkillQuestionBatch(this.form).then(({data}) =>{
+        if(data.code===0){
           this.$message.success("操作成功")
-          this.form = []
+          this.form=[]
           this.$emit('confirm')
-        } else {
+        }
+        else{
           this.$message.error(data.msg)
         }
       })
