@@ -792,9 +792,6 @@ export default {
         this.$message.success("删除失败："+data.msg);
       }
     },
-
-
-
     deleteSkillCourseFile(id){
       this.deleteFileConfirmVisible=true;
       this.deleteFileConfirmId=id;
@@ -818,9 +815,6 @@ export default {
         this.$message.success("删除失败："+data.msg);
       }
     },
-
-
-
     msover_dir(id){
       this.model_bgcolor_dirId=id;
       this.model_bgcolor_class="bgcls";
@@ -874,8 +868,6 @@ export default {
         return '';
       }
     },
-
-
     getUploadFileTypeFun(){
       if(this.curSourceObj.type===2){
         return 12;

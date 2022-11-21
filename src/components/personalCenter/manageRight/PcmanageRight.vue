@@ -29,7 +29,7 @@
             <div class="name">{{item.createUserRealName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.modifiedTimeStr}}</div>
           </div>
           <div class="right">
-            <div class="edit"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span>编辑</span></div>
+            <div @click="openEditQuestion(item)" class="edit"><img src="../../../../static/tuImg/bianji@2x.png" alt=""><span>编辑</span></div>
             <div @click="del(item.id)" class="dele"><img src="../../../../static/tuImg/shanchu@2x.png" alt=""><span>删除</span></div>
           </div>
         </div>
@@ -48,8 +48,8 @@
       </div>
     </div>
     <AddQuestions :show="showAddQuestions" @cancel="closeAddQuestions" @confirm="confirmAddQuestion"/>
-    
-    <PcEditQuestion :show="showEditQuestion" :question="question" @cancel="closeEditQuestion" @confirt="confirmEditQuestion" />
+
+    <PcEditQuestion :show="showEditQuestion" :question="question" @cancel="closeEditQuestion" @confirm="confirmEditQuestion" />
   </div>
 </template>
 
@@ -83,6 +83,7 @@ export default {
   data() {
     return {
       showAddQuestions:false,
+      question: {},
       // currentPage: 1, //当前页数 ，默认为1
       // pageSize: 3, // 每页显示数量
       list: [], //当前页显示内容
@@ -149,7 +150,7 @@ export default {
       }
       const  { data } =  await API.pcmanageRight.listPageSkillQuestionsByDirId(params)
       this.list = data.page.list;
-      console.log(this.list); 
+      console.log(this.list);
     },
     openEditQuestion(question){
       this.question = question;
@@ -158,6 +159,10 @@ export default {
     closeEditQuestion(){
       this.showEditQuestion=false
     },
+    confirmEditQuestion() {
+      this.init()
+      this.showEditQuestion = false
+    }
   },
 }
 </script>
