@@ -1,10 +1,14 @@
 <template>
     <div>
         <div class="left-top">
-            <el-button type="primary" @click="addBig" style=" width: 90px;">+ 专项类型</el-button>
-            <el-button type="primary" @click="addSmall" style=" width: 70px;">+ 子专项</el-button>
-            <img style="margin-left:45px" src="../../../../static/tuImg/sahng@2x.png" alt="">
-            <img src="../../../../static/tuImg/xia2@2x.png" alt="">
+            <div>
+                <el-button type="primary" @click="addBig" style=" width: 90px;">+ 专项类型</el-button>
+                <el-button type="primary" @click="addSmall" style=" width: 70px;">+ 子专项</el-button>
+            </div>
+            <div>
+                <img style="margin-left:45px" src="../../../../static/tuImg/sahng@2x.png" alt="">
+                <img src="../../../../static/tuImg/xia2@2x.png" alt="">
+            </div>
         </div>
 
         <el-row class="tac">

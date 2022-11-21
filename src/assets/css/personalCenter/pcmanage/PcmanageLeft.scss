@@ -3,6 +3,8 @@
     margin-left: 15px;
     margin-top: 10px;
     font-size: 10px;  //可以去除app.vue的干扰
+    display: flex;
+    justify-content: space-between;
 }
 .left-top >>> .el-button--primary{
     background-color:#00BDA5;
