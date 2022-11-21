@@ -95,17 +95,18 @@
                 font-weight: 400;
                 color: #00bda5;
                 text-align: center;
+                line-height: 22px;
             }
-            span{
+            .name{
                 color: #393939;
                 width: 159px;
-                height: 16px;
                 font-size: 16px;
+                line-height: 36px;
                 font-family: PingFang SC, PingFang SC-Regular;
                 font-weight: 400;
                 text-align: left;
                 color: #393939;
-                line-height: 20px;
+                // line-height: 22px;
                 margin-left: 30px;
             }
         }
@@ -146,13 +147,36 @@
         .exam-opt{
             cursor: pointer;
             line-height: 40px;
-            padding-left: 35px;
+            padding-left: 30px;
             width: 35%;
             height: 40px;
             background: #f8f8f8;
-            color: #00bda5;;
+            color: #393939;
             border-radius: 4px;
             font-size: 16px;
+        }
+        //正确答案显示
+        .exam-opted{
+            // opacity: 0.12;
+            // background: #00bda5;
+            border-radius: 4px;
+            // rgba格式不会对文字干扰
+            background-color: rgba(0,189,165,0.12);
+            span{
+                margin-right: -8px;
+            }
+        }
+        //ABCD序号颜色加深
+        .opted{
+            width: 24px;
+            height: 24px;
+            background: #00bda5;
+            border-radius:25px;;
+            color: #FEFEFE;
+            display: inline-block;
+            line-height: 24px;
+            margin-left: -6px;
+            padding-left: 6px;
         }
         // .exam-opt:hover{
         //     background: #00bda5;
