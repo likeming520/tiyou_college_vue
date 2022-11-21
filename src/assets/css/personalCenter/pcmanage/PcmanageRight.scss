@@ -148,12 +148,13 @@
             cursor: pointer;
             line-height: 40px;
             padding-left: 30px;
-            width: 35%;
-            height: 40px;
+            width: 65%;
+            // height: 40px;
             background: #f8f8f8;
             color: #393939;
             border-radius: 4px;
             font-size: 16px;
+            word-break: break-all;
         }
         //正确答案显示
         .exam-opted{
@@ -162,6 +163,8 @@
             border-radius: 4px;
             // rgba格式不会对文字干扰
             background-color: rgba(0,189,165,0.12);
+            // 超过长度的文字自动换行
+            word-break: break-all;
             span{
                 margin-right: -8px;
             }
