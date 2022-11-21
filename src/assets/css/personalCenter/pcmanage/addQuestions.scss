@@ -72,11 +72,15 @@
   background-color: #f1f1f1;
 }
 
+
 /*题目样式*/
 .question_container{
   height: 650px;
   overflow-y: scroll;
   overflow-x: hidden;
+  /*火狐浏览器滚动条设置*/
+  scrollbar-width:thin;
+  scrollbar-color:#f1f1f1 white;
   .question{
     .question_type{
       padding: 0 16px;
@@ -180,7 +184,7 @@
     }
   }
   .right{
-    width: 224px;
+    width: 218px;
     height: 100%;
     .analysis{
       height: 100%;
@@ -214,7 +218,7 @@
   height: 64px;
 }
 .uploader{
-  margin-left: 12px;
+  margin-left: 18px;
   margin-top: 32px;
   width: 100px;
   height: 64px;

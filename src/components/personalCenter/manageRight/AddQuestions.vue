@@ -109,7 +109,7 @@
 
                       <div class="footer" style="padding-top: 0" v-if="q.question.questionType!==3">
                         <el-button type="primary" class="aus_confirm_btn_ok" style="height: 28px;margin-left: 18px;"
-                                   @click="addOption(i)">添加答案
+                                   @click="addOption(i)">添加选项
                         </el-button>
                       </div>
                     </div>
