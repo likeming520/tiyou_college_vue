@@ -223,7 +223,7 @@ export default {
         return
       }
 
-      updataquestion(this.question).then(({data}) =>{
+      updataquestion({"question": this.question, "options": this.question.options}).then(({data}) =>{
         if(data.code===0){
           this.$message.success("操作成功")
           this.$emit('confirm')

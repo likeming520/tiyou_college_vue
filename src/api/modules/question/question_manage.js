@@ -17,7 +17,7 @@ export function getquestionlist(params) {
 /**上下移动目录*/
 export function moveUpAndDown (params) {
   return request({
-    url: requestUrl('hyskillquestionknowledge/upOrDownSkillQuestionKnowledge'),
+    url: requestUrl('/hyskillquestionknowledge/upOrDownSkillQuestionKnowledge'),
     method: 'post',
     data: JSON.stringify(params)
   })
@@ -36,7 +36,7 @@ export function getDir (params) {
 /**新增大纲目录*/
 export function save(params) {
   return request({
-    url: requestUrl('/xqknowledge/save'),
+    url: requestUrl('/hyskillquestionknowledge/saveOrUpdateSkillQuestionKnowledge'),
     method: 'post',
     data: requestParam(params)
   })
@@ -54,9 +54,9 @@ export function update(params) {
 /**删除大纲*/
 export function deleteDir(params) {
   return request({
-    url:requestUrl('/xqknowledge/delete/'+params),
-    method:'post'
-    //data:requestParam(params)
+    url:requestUrl('/hyskillquestionknowledge/deleteSkillQuestionKnowledge'),
+    method:'post',
+    data:requestParam(params)
   })
 }
 

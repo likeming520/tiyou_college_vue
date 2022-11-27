@@ -2,48 +2,17 @@
     <div>
         <div class="left-top">
             <div>
-                <el-button type="primary" @click="addDirOne" style=" width: 90px;">+ 专项类型</el-button>
-                <el-button type="primary" @click="addSmall" style=" width: 70px;">+ 子专项</el-button>
+                <el-button type="primary" @click="openMainDir1Add(null, true)" style=" width: 90px;">+ 专项类型</el-button>
+                <el-button type="primary" @click="openMainDir2Add" style=" width: 70px;">+ 子专项</el-button>
             </div>
             <div class="right-icon">
-                <img style="margin-left:45px" src="../../../../static/tuImg/sahng@2x.png" alt="">
-                <img src="../../../../static/tuImg/xia2@2x.png" alt="">
+                <img @click="upOrDownSkillCourseDir(1)" style="margin-left:45px" src="../../../../static/tuImg/sahng@2x.png" alt="">
+                <img @click="upOrDownSkillCourseDir(2)" src="../../../../static/tuImg/xia2@2x.png" alt="">
             </div>
         </div>
-
-
-
-        <!-- <el-row class="tac">
-            <el-col>
-                <el-menu
-                default-active="2"
-                class="el-menu-vertical-demo">
-                    <el-submenu v-for="(first, f_index) in menus" :index="f_index+1">
-                        <template slot="title">
-                            <span>{{first.name}}</span>
-                        </template>
-                        <el-menu-item-group v-if="first.childList">
-                            <el-submenu v-for="(second,s_index) in first.childList" :index="f_index +'-' + (s_index+1)">
-                                <template slot="title">
-                                    <span>{{second.name}}</span>
-                                </template>
-                                <el-menu-item-grroup v-if="second.childList">
-                                    <el-submenu v-for="(thirst,t_index) in second.childList" :index="f_index+ '-' +s_index+ '-' +(t_index)">
-                                        <template slot="title">
-                                            <span>{{thirst.name}}</span>
-                                        </template>
-                                    </el-submenu>
-                                </el-menu-item-grroup>
-                            </el-submenu>
-                        </el-menu-item-group>
-                    </el-submenu>
-                </el-menu>
-            </el-col>
-        </el-row> -->
-
-        <div class="main_dir3" style="font-size: 12px;" v-if="menus.length>0">
+<!--        <div class="main_dir3" style="font-size: 12px;" v-if="menus.length>0">
           <div v-for="(item1) in menus">
-            <!--  一级目录列表 -->
+            &lt;!&ndash;  一级目录列表 &ndash;&gt;
             <div class="main_dir_line" @mouseover="msover_dir(item1.id)" @mouseout="msout_dir(item1.id)">
               <div class="main_dir_line_icon">
                 <div class="main_dir_line_icon1"></div>
@@ -69,7 +38,7 @@
                   </el-popover>
                 </div>
               </div>
-              <!--重命名一级目录 s-->
+              &lt;!&ndash;重命名一级目录 s&ndash;&gt;
               <div class="main_dir_line_right main_dir_line_right_add1dir" v-show="model_rename_dir_cId==item1.id " style="margin-left: 20px;">
                 <div style="" class="main_dir_add1dir_input">
                   <el-input  v-model="model_rename_dirName"  placeholder="请输入目录名称" style="width: 100%;margin-left: -6px;" clearable></el-input>
@@ -79,11 +48,11 @@
                   <div class="main_dir_line_right_add1dir_operator_add" @click="renameDirName_confirm">确定</div>
                 </div>
               </div>
-              <!--重命名一级目录 e-->
+              &lt;!&ndash;重命名一级目录 e&ndash;&gt;
 
             </div>
 
-            <!--  二级目录列表 -->
+            &lt;!&ndash;  二级目录列表 &ndash;&gt;
             <div    v-for="(item2) in item1.childList">
               <div class="main_dir_line"  @mouseover="msover_dir(item2.id)" @mouseout="msout_dir(item2.id)">
                 <div class="main_dir_line_icon">
@@ -109,7 +78,7 @@
                     </el-popover>
                   </div>
                 </div>
-                <!--重命名二级目录 s-->
+                &lt;!&ndash;重命名二级目录 s&ndash;&gt;
                 <div class="main_dir_line_right main_dir_line_right_add1dir" v-show="model_rename_dir_cId==item2.id " style="margin-left: 20px;">
                   <div style="" class="main_dir_add1dir_input">
                     <el-input  v-model="model_rename_dirName"   v-fo  placeholder="请输入目录名称" style="width: 100%;margin-left: -6px;" clearable></el-input>
@@ -119,11 +88,11 @@
                     <div class="main_dir_line_right_add1dir_operator_add" @click="renameDirName_confirm">确定</div>
                   </div>
                 </div>
-                <!--重命名二级目录 e-->
+                &lt;!&ndash;重命名二级目录 e&ndash;&gt;
               </div>
 
 
-              <!--  三级目录列表 -->
+              &lt;!&ndash;  三级目录列表 &ndash;&gt;
               <div    v-for="(item3) in item2.childList">
                 <div class="main_dir_line" @mouseover="msover_dir(item3.id)" @mouseout="msout_dir(item3.id)">
                   <div class="main_dir_line_icon">
@@ -144,12 +113,12 @@
                           <div class="dirFileExame_pccs_col" @click="deleteSkillCourseDir(item3.id)">删除</div>
                           <div class="dirFileExame_pccs_col" @click="upOrDownSkillCourseDir(item3.id,1)">上移</div>
                           <div class="dirFileExame_pccs_col" @click="upOrDownSkillCourseDir(item3.id,2)">下移</div>
-                          <!--<div class="dirFileExame_pccs_col">添加子目录</div>-->
+                          &lt;!&ndash;<div class="dirFileExame_pccs_col">添加子目录</div>&ndash;&gt;
                         </div>
                       </el-popover>
                     </div>
                   </div>
-                  <!--重命名二级目录 s-->
+                  &lt;!&ndash;重命名二级目录 s&ndash;&gt;
                   <div class="main_dir_line_right main_dir_line_right_add1dir" v-show="model_rename_dir_cId==item3.id " style="margin-left: 20px;">
                     <div style="" class="main_dir_add1dir_input">
                       <el-input  v-model="model_rename_dirName"   v-fo  placeholder="请输入目录名称" style="width: 100%;margin-left: -6px;" clearable></el-input>
@@ -159,13 +128,13 @@
                       <div class="main_dir_line_right_add1dir_operator_add" @click="renameDirName_confirm">确定</div>
                     </div>
                   </div>
-                  <!--重命名二级目录 e-->
+                  &lt;!&ndash;重命名二级目录 e&ndash;&gt;
 
                 </div>
 
               </div>
 
-              <!--  【新增修改目录-输入框】【三级目录】开始 -->
+              &lt;!&ndash;  【新增修改目录-输入框】【三级目录】开始 &ndash;&gt;
               <div class="main_dir_line2" v-if="model_sub_dir_pId == item2.id">
                 <div class="main_dir_line_icon">
                   <div class="main_dir_line_icon1" style="visibility: hidden;"></div>
@@ -181,10 +150,10 @@
                   </div>
                 </div>
               </div>
-              <!--  【新增修改目录-输入框】【三级目录】结束 -->
+              &lt;!&ndash;  【新增修改目录-输入框】【三级目录】结束 &ndash;&gt;
             </div>
 
-            <!--  【新增修改目录-输入框】【二级目录】开始 -->
+            &lt;!&ndash;  【新增修改目录-输入框】【二级目录】开始 &ndash;&gt;
             <div class="main_dir_line2" v-if="model_sub_dir_pId == item1.id">
               <div class="main_dir_line_icon">
                 <div class="main_dir_line_icon1" style="visibility: hidden;"></div>
@@ -200,11 +169,11 @@
                 </div>
               </div>
             </div>
-            <!--  【新增修改目录-输入框】【二级目录】结束 -->
+            &lt;!&ndash;  【新增修改目录-输入框】【二级目录】结束 &ndash;&gt;
           </div>
         </div>
 
-      <!--  【新增目录-输入框】开始 -->
+      &lt;!&ndash;  【新增目录-输入框】开始 &ndash;&gt;
       <div class="main_dir_line2" style="font-size: 14px" v-if="model_first_dirName_show_flag">
         <div class="main_dir_line_right_add1dir">
           <div style="" class="main_dir_add1dir_input">
@@ -216,479 +185,575 @@
           </div>
         </div>
       </div>
-      <!--  【新增目录-输入框】结束 -->
+      &lt;!&ndash;  【新增目录-输入框】结束 &ndash;&gt;-->
+
+      <div class="main_dir" v-if="menus.length > 0">
+<!--        :style="'height:' + (36+(item1.childList.length-1)*36) + 'px'"-->
+        <div class="main_dir_1"
+             :style="'min-height:' + ((item1.childList.length+1)*36)"
+             v-for="(item1, index1) in menus">
+          <div @click="msover_dir(item1.id)" class="main_dir_1_item" :class="{'active': dir_bgColor == item1.id}" style="cursor: pointer;user-select: none;" v-if="item1.childList.length>0">
+            <div style="display: inline-block; width: 20px;height: 30px;line-height: 30px;margin-left: 20px" id="spread-icon"><i class="el-icon-arrow-down"></i></div>
+            <span>第{{index1+1}}章：{{item1.name}}</span>
+
+            <img v-popover::ref="'popover_'+item1.id"  style="width: 20px;height: 20px;position: absolute;top: 5px;right: 20px;z-index: 999"
+                 :src="require('../../../assets/images/menu.png')" alt="">
+            <el-popover
+              popper-class="my_el-popover"
+              :ref="'popover_'+item1.id"
+              placement="bottom-start"
+              trigger="click"
+            >
+              <div style="min-width: 50px; border: 0px solid red;" @mouseover="msover_dir(item1.id)" @mouseout="msout_dir(item1.id)">
+                <div
+                  @click="openMainDir1Add(item1, false)"
+                  style="width: 50px;font-size: 14px;cursor: pointer;
+                            font-family: PingFang SC, PingFang SC-Regular;font-weight: 400;text-align: left;color: #393939;line-height: 36px;" >
+                  编辑</div>
+                <div
+                  @click="deleteMainDir(item1.id)"
+                  style="width: 50px;font-size: 14px;cursor: pointer;
+                font-family: PingFang SC, PingFang SC-Regular;font-weight: 400;text-align: left;color: #FF6E67;line-height: 36px;" >
+                  删除</div>
+              </div>
+            </el-popover>
+<!--            <span style="display: inline-block; position: absolute;top: 0px;right: 20px" ><img style="width: 20px;height: 20px;" :src="require('../../../assets/images/menu.png')" alt=""></span>-->
+            <!-- 二级子目录 Start -->
+            <div class="main_dir_2" :style="'min-height:'+((item2.childList.length+1)*36)" v-for="(item2, index2) in item1.childList">
+              <div @click.prevent="msover_dir(item2.id)" class="main_dir_2_item" :class="{'active': dir_bgColor == item2.id}" style="cursor: pointer;user-select: none;z-index: 9">
+                <span style="margin-left: 60px"></span>
+                <div style="display: inline-block">{{item2.name}}</div>
+                <div class="main_dir_3" v-for="(item3, index3) in item2.childList">
+                  <div @click.prevent="msover_dir(item3.id)" class="main_dir_3_item" :class="{'active': dir_bgColor == item3.id}" style="display: flex; align-items: center;cursor: pointer;user-select: none;z-index: 99">
+                    <span style="margin-left: 80px"></span>
+                    <span>{{item3.name}}</span>
+                  </div>
+                  <!-- 三级子目录添加或修改 Start -->
+<!--                  <div class="main_dir_3_add" v-if="false">
+                    <input type="text" v-model="main_dir_1_add_text" placeholder="请输入专项名称" />
+                    <i class="el-icon-success" style="color: #00BDA5;margin-left: 10px; margin-right: 10px"></i>
+                    <i class="el-icon-error" style="color: #FF6E67"  @click="closeMainDir1Add"></i>
+                  </div>-->
+                  <!-- 三级子目录添加或修改 End -->
+                </div>
+              </div>
+            </div>
+            <!-- 二级子目录 End -->
+
+            <!-- 二级子目录添加或修改 Start -->
+<!--            <div class="main_dir_2_add" v-if="main_dir_2_add_show">
+              <input type="text" v-model="main_dir_2_add_text" placeholder="请输入新子项名称" />
+              <i class="el-icon-success" style="color: #00BDA5;margin-left: 10px; margin-right: 10px"></i>
+              <i class="el-icon-error" style="color: #FF6E67" @click="closeMainDir2Add"></i>
+            </div>-->
+            <!-- 二级子目录添加或修改 End -->
+          </div>
+          <div @click="msover_dir(item1.id)" class="main_dir_1_item" :class="{'active': dir_bgColor == item1.id}"
+               style="display: flex;align-items: center; cursor: pointer;user-select: none;" v-else>
+            <div style="display: inline-block; width: 20px;height: 30px;line-height: 30px;margin-left: 20px" id="spread-icon"></div>
+            <span>第{{index1+1}}章：{{item1.name}}</span>
+            <img v-popover::ref="'popover_'+item1.id"  style="width: 20px;height: 20px;position: absolute;top: 5px;right: 20px;z-index: 999"
+                 :src="require('../../../assets/images/menu.png')" alt="">
+            <el-popover
+              popper-class="my_el-popover"
+              :ref="'popover_'+item1.id"
+              placement="bottom-start"
+              trigger="click"
+            >
+              <div style="min-width: 50px; border: 0px solid red;" @mouseover="msover_dir(item1.id)" @mouseout="msout_dir(item1.id)">
+                <div
+                  @click="openMainDir1Add(item1, false)"
+                  style="width: 50px;font-size: 14px;cursor: pointer;
+                            font-family: PingFang SC, PingFang SC-Regular;font-weight: 400;text-align: left;color: #393939;line-height: 36px;" >
+                  编辑</div>
+                <div
+                  @click="deleteMainDir(item1.id)"
+                  style="width: 50px;font-size: 14px;cursor: pointer;
+                font-family: PingFang SC, PingFang SC-Regular;font-weight: 400;text-align: left;color: #FF6E67;line-height: 36px;" >
+                  删除</div>
+              </div>
+            </el-popover>
+          </div>
+
+
+        </div>
+
+        <!-- 三级子目录添加或修改 Start -->
+<!--        <div class="main_dir_3_add" v-if="closeMainDir3Add">
+          <input type="text" v-model="main_dir_3_add_text" placeholder="请输入专项名称" />
+          <i class="el-icon-success" style="color: #00BDA5;margin-left: 10px; margin-right: 10px"></i>
+          <i class="el-icon-error" style="color: #FF6E67"  @click="closeMainDir3Add"></i>
+        </div>-->
+        <!-- 三级子目录添加或修改 End -->
+
+        <!-- 二级子目录添加或修改 Start -->
+        <div class="main_dir_2_add" v-if="main_dir_2_add_show">
+          <input type="text" v-model="main_dir_2_add_text" placeholder="请输入新子项名称" />
+          <i class="el-icon-success" style="color: #00BDA5;margin-left: 10px; margin-right: 10px"></i>
+          <i class="el-icon-error" style="color: #FF6E67" @click="closeMainDir2Add"></i>
+        </div>
+        <!-- 二级子目录添加或修改 End -->
+
+        <!-- 一级目录添加或修改 Start -->
+        <div class="main_dir_1_add" v-if="main_dir_1_add_show">
+          <input type="text" v-model="main_dir_1_add_text" placeholder="请输入专项名称" />
+          <i class="el-icon-success" v-show="main_dir_1_add" @click="submitMainDir1" style="color: #00BDA5;margin-left: 10px; margin-right: 10px"></i>
+          <i class="el-icon-success" v-show="!main_dir_1_add" @click="renameMainDir1" style="color: #00BDA5;margin-left: 10px; margin-right: 10px"></i>
+          <i class="el-icon-error" style="color: #FF6E67"  @click="closeMainDir1Add"></i>
+        </div>
+        <!-- 一级目录添加或修改 End -->
+      </div>
+
     </div>
 </template>
 
 <script>
 import API from '@/api'
-import {doGetMenu} from '../../../api/modules/question_bank/menu.js'
-import {getDir, update, moveUpAndDown} from "../../../api/modules/question/question_manage";
+import {getDir, update, moveUpAndDown,save, deleteDir} from "../../../api/modules/question/question_manage";
 
 export default {
-        name: "PcmanageLeft",
-        data() {
-            return {
-                menus: [],  // 目录
-                skillResourcesId:1,
+  name: "PcmanageLeft",
+  data() {
+      return {
+        menus: [
+          {
+            id: 10001,
+            name: "web简介",
+            childList: [
+              {
+                id: 10011,
+                name: "web基础概念",
+                childList: [
+                  {
+                    id: 10111,
+                    name: "web基础概念1"
+                  }
+                ]
+              },
+              {
+                id:10012,
+                name: "web进阶概念",
+                childList: [
+                  {
+                    id: 10112,
+                    name: "web进阶概念1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 10002,
+            name: "HTML基础",
+            childList: [
+              {
+                id: 20011,
+                name: "web基础概念",
+                childList: [
+                  {
+                    id: 20111,
+                    name: "web基础概念1"
+                  }
+                ]
+              },
+              {
+                id:21012,
+                name: "web进阶概念",
+                childList: [
+                  {
+                    id: 21112,
+                    name: "web进阶概念1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 10003,
+            name: "CSS基础",
+            childList: []
+          },
+        ],
+        skillResourcesId:1,
 
-                model_first_dirName:'',//新增一级目录
-                model_first_dirName_show_flag:false,//新增一级目录，是否显示，true 显示，false不显示
+        curr_select_main_dir:  "",
 
-                model_sub_dirName:'',//新增子目录
-                model_sub_dir_pId:'',//新增子目录，父级目录id
+        dir_bgColor: true,
 
-                model_rename_dirName:'',//重命名目录名称
-                model_rename_dir_cId:'',//重命名目录名称，目录id
+        main_dir_1_add_text: "",
+        main_dir_1_add: true,       // true：新增，false：修改
+        main_dir_1_add_show: false,
 
-                model_rename_file_id:'',//重命名文件名称
-                model_rename_fileName:'',//重命名文件名称，目录id
+        main_dir_2_add_text: "",
+        main_dir_2_add:true,        // true：新增，false：修改
+        main_dir_2_add_show: false,
 
-                model_bgcolor_dirId:'',//当前悬浮的背景的目录id
-                model_bgcolor_class:'',//目录背景样式
-                model_bgcolor_op_class:'',//是否显示操作按钮样式
-            }
-        },
-        created() {
-            this.init()
-        },
+        main_dir_3_add_text: "",
+        main_dir_3_add_show: false,
+      }
+  },
+  created() {
+      this.init()
+  },
+  mounted() {
+  },
+  components:{},
 
-        components:{},
-
-        methods: {
-          addBig() {},
-          addSmall() {},
-          init() {
-            getDir({"skillResourcesId": 1}).then((result) => {
-              console.log(result.data.page);
-              this.menus = result.data.page
-            }).catch((err) => {
-              console.log(err);
-            });
-          },
-          addDirOne(){
-            // this.$nextTick(() => {
-            //   this.$refs.saveTagInput.focus1()
-            // })
-            // this.$nextTick(() => {
-            //   this.$refs.saveTagInput[0].focus()
-            // })
-
-            this.model_first_dirName_show_flag=true;
-          },
-          addDirOne_cal(){
-            this.model_first_dirName_show_flag=false;
-            // model_first_dirName
-          },
-          async addDirOne_confirm(){
-            if(this.model_first_dirName==null || this.model_first_dirName==""){
-              this.$message.error('目录名称必填');
-              return;
-            }
-            let params = {
-              skillResourcesId:this.skillResourcesId,
-              parentId: 0,
-              name:this.model_first_dirName,
-            }
-            const  { data } =  await API.pcCourseDirFileExameEdit.saveOrUpdateSkillCourseDir(params)
-            // console.log("data=",data);
-            if (data && data.code === 0) {
-              this.$message.success("添加成功");
-              this.init()
-              this.model_first_dirName_show_flag=false;
-              this.model_first_dirName="";
-            }else{
-              this.$message.success("添加失败："+data.msg);
-            }
-
-          },
-
-          addSubDir_open(id){
-            this.model_sub_dir_pId=id;
-          },
-          addDirSub_cal(id){
-            this.model_sub_dir_pId='';
-          },
-          async addDirSub_confirm(){
-            if(this.model_sub_dirName==null || this.model_sub_dirName==""){
-              this.$message.error('目录名称必填');
-              return;
-            }
-            let params = {
-              skillResourcesId:this.skillResourcesId,
-              parentId:this.model_sub_dir_pId,
-              name:this.model_sub_dirName,
-            }
-            const  { data } =  await API.pcCourseDirFileExameEdit.saveOrUpdateSkillCourseDir(params)
-            // console.log("data=",data);
-            if (data && data.code === 0) {
-              this.$message.success("添加成功");
-              this.init()
-              this.model_sub_dir_pId='';
-              this.model_sub_dirName="";
-            }else{
-              this.$message.success("添加失败："+data.msg);
-            }
-          },
-
-          // 打开重命名
-          renameDirName_open(id,name){
-            this.model_rename_dir_cId=id;
-            this.model_rename_dirName = name;
-          },
-          // 取消重命名
-          renameDirName_cal(){
-            this.model_rename_dir_cId='';
-            this.model_rename_dirName = '';
-          },
-          // 确认重命名
-          async renameDirName_confirm(){
-            if(this.model_rename_dirName==null || this.model_rename_dirName==""){
-              this.$message.error('目录名称必填');
-              return;
-            }
-            let params = {
-              skillResourcesId:this.skillResourcesId,
-              id:this.model_rename_dir_cId,
-              name:this.model_rename_dirName,
-            }
-            const  { data } =  await API.pcCourseDirFileExameEdit.saveOrUpdateSkillCourseDir(params)
-            // console.log("data=",data);
-            if (data && data.code === 0) {
-              this.$message.success("重命名成功");
-              this.init()
-              this.model_rename_dir_cId='';
-              this.model_rename_dirName="";
-            }else{
-              this.$message.success("重命名失败："+data.msg);
-            }
-          },
-
-
-          //课程目录-上移下移   upAndDownFlag:排序状态调整：1上移2下移
-          async upOrDownSkillCourseDir(id,upAndDownFlag){
-            let str= '';
-            if(upAndDownFlag==1){
-              str="上移";
-            }else if(upAndDownFlag==1){
-              str="下移";
-            }
-            let params = {
-              id:id,
-              upAndDownFlag:upAndDownFlag,
-            }
-            const  { data } =  await API.pcCourseDirFileExameEdit.upOrDownSkillCourseDir(params)
-            // console.log("data=",data);
-            if (data && data.code === 0) {
-              this.$message.success(str+"成功");
-              this.init()
-            }else{
-              this.$message.success(str+"失败："+data.msg);
-            }
-          },
-
-
-          deleteSkillCourseDir(id){
-            this.deleteDirConfirmVisible=true;
-            this.deleteDirConfirmId=id;
-          },
-          deleteDirConfirmCancel(id){
-            this.deleteDirConfirmVisible=false;
-            this.deleteDirConfirmId='';
-          },
-          //目录-删除（子级所有数据都删除）
-          async deleteDirConfirm(){
-            let params = {
-              id:this.deleteDirConfirmId,
-            }
-            const  { data } =  await API.pcCourseDirFileExameEdit.deleteSkillCourseDir(params)
-            // console.log("data=",data);
-            if (data && data.code === 0) {
-              this.$message.success("删除成功");
-              this.init()
-              this.deleteDirConfirmCancel();
-            }else{
-              this.$message.success("删除失败："+data.msg);
-            }
-          },
-          msover_dir(id){
-            this.model_bgcolor_dirId=id;
-            this.model_bgcolor_class="bgcls";
-            this.model_bgcolor_op_class="main_dir_line_right_operator_show";
-          },
-          msout_dir(id){
-            this.model_bgcolor_dirId='';
-            this.model_bgcolor_class="";
-            this.model_bgcolor_op_class="";
-          },
+  methods: {
+    init() {
+      getDir({"skillResourcesId": 1}).then((result) => {
+        console.log(result.data.page);
+        this.menus = result.data.page
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
+    openMainDir1Add(menu, method) {
+      if (menu != null) {
+        this.main_dir_1_add_text = menu.name
+      } else {
+        this.main_dir_1_add_text = ""
+      }
+      this.curr_select_main_dir = menu
+      this.main_dir_1_add = method
+      this.main_dir_1_add_show = true
+    },
+    closeMainDir1Add() {
+      this.main_dir_1_add_show = false;
+    },
+    // 新增专项
+    submitMainDir1() {
+      if (this.main_dir_1_add_text === "" || this.main_dir_1_add_text === null) {
+        this.$message.warning("目录名不能为空")
+        return
+      }
+      // this.$message.success("新增成功: " + this.main_dir_1_add_text)
+      // this.main_dir_1_add_show = false
+      // this.init()
+      save({
+        skillResourcesId: this.skillResourcesId,
+        parentId: null,
+        parentName: null,
+        type: 1,
+        name: this.main_dir_1_add_text,
+        orderNum: this.menus.length
+      }).then(({data}) => {
+        console.log(data)
+        if (data && data.code === 0) {
+          this.$message.success("新增成功")
+          this.main_dir_1_add_show = false
+          // 新增之后调用初始化方法，重新请求目录
+          this.init()
+        } else {
+          this.$message.error(data.msg)
         }
-    }
+      })
+    },
+    // 编辑专项目录名称
+    renameMainDir1() {
+      if (this.main_dir_1_add_text === "" || this.main_dir_1_add_text === null) {
+        this.$message.warning("目录名不能为空")
+        return
+      }
+      // this.$message.success("修改成功成功: " + this.main_dir_1_add_text)
+      // this.main_dir_1_add_show = false
+      // 修改之后调用初始化方法，重新请求目录
+      // this.init()
+      let params = this.curr_select_main_dir
+      params.name = this.main_dir_1_add_text
+      save({
+        "id":params.id,
+        "skillResourcesId":1,
+        "parentId":null,
+        "name":this.main_dir_1_add_text,
+        "nodeNum":this.menus.length
+      }).then(({data}) => {
+        console.log(data)
+        if (data && data.code === 0) {
+          this.$message.success("修改成功")
+          this.main_dir_1_add_show = false
+          // 新增之后调用初始化方法，重新请求目录
+          this.init()
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
+    },
+    openMainDir2Add(menu, methdo) {
+      if (this.curr_select_dir_id === "" || this.main_dir_2_add_text === undefined) {
+        this.$message.warning("请选择一个子项")
+        return
+      }
+      this.main_dir_2_add_show = true
+    },
+    closeMainDir2Add() {
+      this.main_dir_2_add_show = false
+    },
+    openMainDir3Add() {
+      this.main_dir_3_add_show = true
+    },
+    closeMainDir3Add() {
+      this.main_dir_3_add_show = false
+    },
+
+    // 删除专项目录
+    deleteMainDir(id) {
+      this.$confirm("确定删除改目录吗？").then(() => {
+        // this.$message.success("删除成功"+id)
+        // this.init()
+        deleteDir({
+          "id": id
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.$message.success("删除成功")
+          } else {
+            this.$message.error("删除失败：" + data.msg)
+          }
+        })
+      })
+    },
+
+    //课程目录-上移下移   upAndDownFlag:排序状态调整：1上移2下移
+    async upOrDownSkillCourseDir(upAndDownFlag){
+      let str= '';
+      if(upAndDownFlag==1){
+        str="上移";
+      }else if(upAndDownFlag==1){
+        str="下移";
+      }
+      let params = {
+        id:this.curr_select_dir_id,
+        upAndDownFlag:upAndDownFlag,
+      }
+      const  { data } =  await moveUpAndDown(params)
+      // console.log("data=",data);
+      if (data && data.code === 0) {
+        this.$message.success(str+"成功");
+        this.init()
+      }else{
+        this.$message.error(str+"失败："+data.msg);
+      }
+    },
+    //目录-删除（子级所有数据都删除）
+    async deleteDirConfirm(){
+      let params = {
+        id:this.deleteDirConfirmId,
+      }
+      const  { data } =  await API.pcCourseDirFileExameEdit.deleteSkillCourseDir(params)
+      // console.log("data=",data);
+      if (data && data.code === 0) {
+        this.$message.success("删除成功");
+        this.init()
+        this.deleteDirConfirmCancel();
+      }else{
+        this.$message.success("删除失败："+data.msg);
+      }
+    },
+    msover_dir(id){
+      this.curr_select_dir_id = id
+      this.dir_bgColor = id
+    },
+    msout_dir(id){
+      this.model_bgcolor_dirId='';
+      this.model_bgcolor_class="";
+      this.model_bgcolor_op_class="";
+    },
+  }
+}
 </script>
 
 <style scoped lang="scss">
 @import "../../../assets/css/personalCenter/pcmanage/PcmanageLeft.scss";
-@import "../../../assets/css/personalCenter/pcCourseDirFileExameEdit.scss";
 
-.menus {
-    font-size: 12px;
-    width: 100%;
-    height: 100%;
-    padding: 5px;
-    span {
-        height: .02rem;
-        font-size: .1rem;
+.main_dir {
+  font-size: 14px ;
+  margin-top: 30px;
+  color: #393939;
+  .main_dir_1 {
+    width: 340px;
+    min-height: 36px;
+    line-height: 36px;
+    box-sizing: border-box;
+    position: relative;
+    .main_dir_1_item {
+      position: relative;
+      &.active::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 36px;
+        background: rgba(147, 147, 147, .1);
+      }
     }
-}
 
-.course_dirfileexame_pccs{
-    min-width: 98px;
-    width: 98px;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-  }
-
-.dirFileExame_pccs_col{
-  height: 38px;
-  display: flex;
-  padding-left: 17px;
-  justify-content: flex-start;
-  align-items: center;
-  cursor: pointer;
-  /*border: 1px solid red;*/
-}
-
-.dirFileExame_pccs_col:hover{
-  background-color: #F8F8F8;
-}
-
-.main_dir3{
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  justify-content: flex-start;
-  .main_dir_line{
-    display: flex;
-    height: 44px;
-    align-items: center;
-
-    font-size: 16px;
-    font-family: PingFang SC, PingFang SC-Regular;
-    font-weight: 400;
-    text-align: left;
-    color: #282828;
-
-    //.main_dir_line_icon{
-    //  margin-left: 46px;
+    .main_dir_2 {
+      min-height: 36px;
+      line-height: 36px;
+      .main_dir_2_item {
+        position: relative;
+        &.active::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 36px;
+          background: rgba(147, 147, 147, .1);
+        }
+      }
+      .main_dir_3 {
+        min-height: 36px;
+        line-height: 36px;
+        .main_dir_3_item {
+          position: relative;
+          &.active::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 36px;
+            background: rgba(147, 147, 147, .1);
+          }
+        }
+      }
+      //.main_dir_3_add {
+      //  display: flex;
+      //  width: 301px;
+      //  min-height: 36px;
+      //  margin-top: 5px;
+      //  padding-left: 53px;
+      //  align-items: center;
+      //  background: #f9f9f9;
+      //  input {
+      //    width: 200px;
+      //    height: 28px;
+      //    border: 2px solid #00BDA5;
+      //    border-radius: 3px;
+      //    padding-left: 10px;
+      //    padding-top: 7px;
+      //    padding-bottom: 6px;
+      //    outline: none;
+      //    font-size: 14px;
+      //    font-weight: 400;
+      //    color: #393939;
+      //  }
+      //  i {
+      //    font-size: 22px;
+      //    cursor: pointer;
+      //  }
+      //}
+    }
+    //.main_dir_2_add {
+    //  display: flex;
+    //  width: 301px;
+    //  min-height: 36px;
+    //  margin-top: 5px;
+    //  padding-left: 39px;
     //  align-items: center;
-    //  .main_dir_line_icon1{
-    //    width: 6px;
-    //    height: 6px;
-    //    background: #c5f6f0;
-    //    border: 1px solid #00bda5;
-    //    border-radius: 5px;
-    //    //margin-top: 3px;
-    //    position: relative;
-    //    z-index: 1;
-    //    top: 19px;
+    //  background: #f9f9f9;
+    //  input {
+    //    width: 214px;
+    //    height: 28px;
+    //    border: 2px solid #00BDA5;
+    //    border-radius: 3px;
+    //    padding-left: 10px;
+    //    padding-top: 7px;
+    //    padding-bottom: 6px;
+    //    outline: none;
+    //    font-size: 14px;
+    //    font-weight: 400;
+    //    color: #393939;
     //  }
-    //  .main_dir_line_split1{
-    //    width: 1px;
-    //    background: #f8f8f8;
-    //    height: 44px;
-    //    position: relative;
-    //    top: -7px;
-    //    left: 4px;
-    //    z-index: 0;
+    //  i {
+    //    font-size: 22px;
+    //    cursor: pointer;
     //  }
-    //
     //}
-    .main_dir_line_right{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-left: 20px;
-      width: 100%;
-      //border:1px solid red;
-      height: 44px;
-
-      margin-right: 39px;
-      .main_dir_line_right_operator{
-        //border: 1px solid black;
-        display: flex;
-        justify-content: center;
-        width: 50px;
-        margin-right: 30px;
-        font-size: 16px;
-        font-family: PingFang SC, PingFang SC-Regular;
-        font-weight: 400;
-        text-align: left;
-        color: #00bda5;
-        display: none;
-        cursor: pointer;
-
-
-
-      }
-      .main_dir_line_right_operator_show{
-        display: block;
-      }
-    }
-
-    .bgcls{
-      background-color: #F8F8F8;
-      border-radius: 4px;
-    }
-    //.main_dir_line_right:hover{
-    //  background-color: #F8F8F8;
-    //  border-radius: 4px;
-    //}
-    //.main_dir_line_right:hover .main_dir_line_right_operator{
-    //  display: block;
-    //}
-
-
   }
-
-  .main_dir_line_right_add1dir{
+  .main_dir_1_add {
     display: flex;
-    justify-content: space-between;
+    width: 315px;
+    min-height: 36px;
+    margin-top: 5px;
+    padding-left: 25px;
     align-items: center;
-    margin-left: 74px;
-    width: 100%;
-    //border:1px solid red;
-    height: 44px;
-    margin-right: 39px;
-
-    .main_dir_add1dir_input{
-      margin-left: 15px;width: 100%;
-      height: 30px;
-    }
-    .main_dir_add1dir_input /deep/ .el-input__inner{
-      height: 30px;
-      border: 1px solid #d8d8d8;
-    }
-    .main_dir_add1dir_input /deep/   .el-input__clear{
-      display: flex;
-      align-items: center;
-      //margin-right: 35px;
-    }
-    .main_dir_line_right_add1dir_operator{
-      //border: 1px solid black;
-      display: flex;
-      justify-content: space-around;
-      width: 200px;
-      //margin-right: 30px;
-      font-size: 16px;
-      font-family: PingFang SC, PingFang SC-Regular;
+    background: #f9f9f9;
+    input {
+      width: 228px;
+      height: 28px;
+      border: 2px solid #00BDA5;
+      border-radius: 3px;
+      padding-left: 10px;
+      padding-top: 7px;
+      padding-bottom: 6px;
+      outline: none;
+      font-size: 14px;
       font-weight: 400;
-      text-align: left;
-
-      .main_dir_line_right_add1dir_operator_cal{
-        color: #ff4d43;
-        cursor: pointer;
-      }
-      .main_dir_line_right_add1dir_operator_add{
-        color: #00BDA5;
-        cursor: pointer;
-      }
-
+      color: #393939;
+    }
+    i {
+      font-size: 22px;
+      cursor: pointer;
     }
   }
-
-  .main_dir_line_right_add1dir{
-    background-color: #F8F8F8;
-    border-radius: 4px;
-  }
-
-  .main_dir_line2{
+  .main_dir_2_add {
     display: flex;
-    height: 44px;
+    width: 301px;
+    min-height: 36px;
+    margin-top: 5px;
+    padding-left: 39px;
     align-items: center;
-
-    font-size: 16px;
-    font-family: PingFang SC, PingFang SC-Regular;
-    font-weight: 400;
-    text-align: left;
-    color: #282828;
-
-    .main_dir_line_icon{
-      margin-left: 46px;
-      align-items: center;
-      .main_dir_line_icon1{
-        width: 6px;
-        height: 6px;
-        background: #c5f6f0;
-        border: 1px solid #00bda5;
-        border-radius: 5px;
-        //margin-top: 3px;
-        position: relative;
-        z-index: 1;
-        top: 19px;
-      }
-      .main_dir_line_split1{
-        width: 1px;
-        background: #f8f8f8;
-        height: 44px;
-        position: relative;
-        top: -7px;
-        left: 4px;
-        z-index: 0;
-      }
-
+    background: #f9f9f9;
+    input {
+      width: 214px;
+      height: 28px;
+      border: 2px solid #00BDA5;
+      border-radius: 3px;
+      padding-left: 10px;
+      padding-top: 7px;
+      padding-bottom: 6px;
+      outline: none;
+      font-size: 14px;
+      font-weight: 400;
+      color: #393939;
     }
-    .main_dir_line_right_add1dir{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-left: 74px;
-      width: 100%;
-      //border:1px solid red;
-      height: 44px;
-      margin-right: 39px;
-
-      .main_dir_add1dir_input{
-        margin-left: 15px;width: 100%;
-        height: 30px;
-      }
-      .main_dir_add1dir_input /deep/ .el-input__inner{
-        height: 30px;
-        border: 1px solid #d8d8d8;
-      }
-      .main_dir_add1dir_input /deep/   .el-input__clear{
-        display: flex;
-        align-items: center;
-        //margin-right: 35px;
-      }
-      .main_dir_line_right_add1dir_operator{
-        //border: 1px solid black;
-        display: flex;
-        justify-content: space-around;
-        width: 200px;
-        //margin-right: 30px;
-        font-size: 16px;
-        font-family: PingFang SC, PingFang SC-Regular;
-        font-weight: 400;
-        text-align: left;
-
-        .main_dir_line_right_add1dir_operator_cal{
-          color: #ff4d43;
-          cursor: pointer;
-        }
-        .main_dir_line_right_add1dir_operator_add{
-          color: #00BDA5;
-          cursor: pointer;
-        }
-
-      }
+    i {
+      font-size: 22px;
+      cursor: pointer;
     }
-    .main_dir_line_right_add1dir{
-      background-color: #F8F8F8;
-      border-radius: 4px;
+  }
+  .main_dir_3_add {
+    display: flex;
+    width: 287px;
+    min-height: 36px;
+    margin-top: 5px;
+    padding-left: 53px;
+    align-items: center;
+    background: #f9f9f9;
+    input {
+      width: 200px;
+      height: 28px;
+      border: 2px solid #00BDA5;
+      border-radius: 3px;
+      padding-left: 10px;
+      padding-top: 7px;
+      padding-bottom: 6px;
+      outline: none;
+      font-size: 14px;
+      font-weight: 400;
+      color: #393939;
     }
-
-
-
+    i {
+      font-size: 22px;
+      cursor: pointer;
+    }
+  }
+  .my_el-popover {
+    min-width: 50px !important;
+    max-width: 50px !important;
   }
 }
 </style>
