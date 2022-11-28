@@ -26,7 +26,7 @@ export function moveUpAndDown (params) {
 /**获取所有的大纲目录*/
 export function getDir (params) {
   return request({
-    url: requestUrl('/hyskillcoursedir/listSkillCourseDirTree'),
+    url: requestUrl('/hyskillquestionknowledge/listSkillQuestionKnowledgeTree'),
     method: 'post',
     data: requestParam(params)
   })
