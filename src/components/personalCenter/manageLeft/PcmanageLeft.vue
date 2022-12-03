@@ -2,7 +2,7 @@
     <div>
       <div class="left-top">
             <div>
-                <el-button type="primary" @click="openMainDirAdd('add')" style=" width: 90px;">+ 专项类型</el-button>
+                <el-button type="primary" @click="dir_add_show = true" style=" width: 90px;">+ 专项类型</el-button>
                 <el-button type="primary" @click="openSubDirAdd('add')" style=" width: 70px;">+ 子专项</el-button>
             </div>
             <div class="right-icon">
@@ -10,15 +10,23 @@
                 <img @click="upOrDownSkillCourseDir(2)" src="../../../../static/tuImg/xai@2x.png" alt="">
             </div>
         </div>
-
+      <!-- 新增专项 Start -->
+      <div style="margin-top: 16px">
+        <div class="dir-add" v-if="dir_add_show" >
+          <input type="text" v-model="add_update_name" placeholder="请输入专项名称" />
+          <i class="el-icon-success" @click="submitMainDir" style="left: 263px;" :class="{'active':add_update_name.length>0}"></i>
+          <i class="el-icon-error" style="color: #FF6E67; left: 289px"  @click="dir_add_show = false"></i>
+        </div>
+      </div>
+      <!-- 新增专项 End -->
       <!-- 目录 Start -->
       <div class="dir-wrapper" v-if="menus.length > 0">
         <div class="main-dir-wrapper" v-for="(item1, index1) in menus">
           <!-- 一级目录 Start -->
-          <div class="main-dir clearfix" :class="{'active':item1.id==active_dir.id}" @click="msclick_dir(item1)">
+          <div :ref="'main-ref-' + item1.id" class="main-dir clearfix" :title="item1.name" :class="[{'active':item1.id==active_dir.id},{'collapse':item1.childList.length>0}]" @click="msclick_dir(item1)">
             <!-- 可下拉图标 Start -->
             <div class="dropdown-icon-wrapper">
-              <i class="el-icon-arrow-down"></i>
+              <i v-if="item1.childList.length>0" class="el-icon-arrow-down"></i>
             </div>
             <!-- 可下拉图标 End -->
             <!-- 目录名称 Start -->
@@ -28,7 +36,7 @@
             <!-- 目录名称 End -->
             <!-- 操作按钮 Start -->
             <div class="operate-wrapper">
-              <img v-popover::ref="'popover_'+item1.id" :src="require('../../../assets/images/menu.png')" alt="">
+              <img v-show="item1.id==active_dir.id"  v-popover::ref="'popover_'+item1.id" :src="require('../../../assets/images/menu.png')" alt="">
               <el-popover
                 popper-class="my_el-popover"
                 :ref="'popover_'+item1.id"
@@ -51,12 +59,17 @@
             </div>
             <!-- 操作按钮 End -->
           </div>
+          <div class="dir-add" v-if="main_dir_add_show && item1.id==active_dir.id">
+            <input type="text" v-model="add_update_name" placeholder="请输入专项名称" />
+            <i class="el-icon-success" v-show="sub_dir_add_update=='add'" @click="submitMainDir" style="left: 263px;" :class="{'active':add_update_name.length>0}"></i>
+            <i class="el-icon-success" v-show="sub_dir_add_update=='update'" @click="submitRenameMainDir" style="color: #00BDA5;left: 263px;"></i>
+            <i class="el-icon-error" style="color: #FF6E67; left: 289px"  @click="closeMainDirAdd"></i>
+          </div>
           <!-- 一级目录 End -->
-
-          <div  v-if="item1.childList.length > 0">
+          <div class="menu-spread" :ref="'sub-ref-'+item1.id"   v-if="item1.childList.length > 0" >
             <div class="sub-dir-wrapper" v-for="(item2, index2) in item1.childList">
               <!-- 二级目录 Start -->
-              <div class="sub-dir clearfix" :class="{'active':item2.id==active_dir.id}" @click="msclick_dir(item2,2)">
+              <div class="sub-dir clearfix" :title="item2.name" :class="{'active':item2.id==active_dir.id}" @click="msclick_dir(item2,2)">
                 <div class="dropdown-icon-wrapper">
                   <i class="el-icon-arrow-down" v-if="show_sub_dir_icon_operate"></i>
                 </div>
@@ -64,14 +77,42 @@
                   {{index1+1}}.{{index2+1}}.&nbsp;&nbsp;{{item2.name}}
                 </div>
                 <div class="operate-wrapper">
-                  <img :src="require('../../../assets/images/menu.png')" v-if="show_sub_dir_icon_operate" alt="">
+<!--                  <img :src="require('../../../assets/images/menu.png')" v-if="show_sub_dir_icon_operate" alt="">-->
+                  <img v-show="item2.id==active_dir.id"  v-popover::ref="'popover_'+item2.id" :src="require('../../../assets/images/menu.png')" alt="">
+                  <el-popover
+                    popper-class="my_el-popover"
+                    :ref="'popover_'+item2.id"
+                    placement="bottom-start"
+                    trigger="click"
+                  >
+                    <div style="min-width: 50px; border: 0px solid red;">
+                      <div
+                        @click="openRenameSubDir(item2)"
+                        style="width: 50px;font-size: 14px;cursor: pointer;
+                            font-family: PingFang SC, PingFang SC-Regular;font-weight: 400;text-align: left;color: #393939;line-height: 36px;" >
+                        编辑</div>
+                      <div
+                        @click="deleteMainDir(item2.id)"
+                        style="width: 50px;font-size: 14px;cursor: pointer;
+                font-family: PingFang SC, PingFang SC-Regular;font-weight: 400;text-align: left;color: #FF6E67;line-height: 36px;" >
+                        删除</div>
+                    </div>
+                  </el-popover>
                 </div>
               </div>
               <!-- 二级目录 End -->
+              <!-- 三级目录修改或新增 Start -->
+              <div class="sub-sub-dir-add" v-if="sub_dir_add_show && item2.id==active_dir.id">
+                <input type="text" v-model="add_update_name" placeholder="请输入子项名称" />
+                <i class="el-icon-success" v-show="sub_dir_add_update=='add'" @click="submitSubDir" style="left: 263px;" :class="{'active':add_update_name.length>0}"></i>
+                <i class="el-icon-success" v-show="sub_dir_add_update=='update'" @click="renameSubDir" style="color: #00BDA5;left: 263px;"></i>
+                <i class="el-icon-error" style="color: #FF6E67; left: 289px"  @click="closeSubDirAdd"></i>
+              </div>
+              <!-- 三级目录修改或新增 End -->
               <div v-if="item2.childList.length > 0">
                 <div class="sub-sub-dir-wrapper" v-for="(item3, index3) in item2.childList">
                   <!-- 三级目录 Start -->
-                  <div class="sub-sub-dir clearfix" :class="{'active':item3.id==active_dir.id}" @click="msclick_dir(item3,3)">
+                  <div class="sub-sub-dir clearfix" :title="item3.name" :class="{'active':item3.id==active_dir.id}" @click="msclick_dir(item3,3)">
                     <div class="dropdown-icon-wrapper">
                       <i class="el-icon-arrow-down" v-if="show_sub_dir_icon_operate"></i>
                     </div>
@@ -79,20 +120,39 @@
                       {{index1+1}}.{{index2+1}}.{{index3+1}}&nbsp;&nbsp;{{item3.name}}
                     </div>
                     <div class="operate-wrapper">
-                      <img :src="require('../../../assets/images/menu.png')" v-if="show_sub_dir_icon_operate" alt="">
+<!--                      <img :src="require('../../../assets/images/menu.png')" v-if="show_sub_dir_icon_operate" alt="">-->
+                      <img v-show="item3.id==active_dir.id"  v-popover::ref="'popover_'+item3.id" :src="require('../../../assets/images/menu.png')" alt="">
+                      <el-popover
+                        popper-class="my_el-popover"
+                        :ref="'popover_'+item3.id"
+                        placement="bottom-start"
+                        trigger="click"
+                      >
+                        <div style="min-width: 50px; border: 0px solid red;">
+                          <div
+                            @click="openRenameSubDir(item3)"
+                            style="width: 50px;font-size: 14px;cursor: pointer;
+                            font-family: PingFang SC, PingFang SC-Regular;font-weight: 400;text-align: left;color: #393939;line-height: 36px;" >
+                            编辑</div>
+                          <div
+                            @click="deleteMainDir(item3.id)"
+                            style="width: 50px;font-size: 14px;cursor: pointer;
+                font-family: PingFang SC, PingFang SC-Regular;font-weight: 400;text-align: left;color: #FF6E67;line-height: 36px;" >
+                            删除</div>
+                        </div>
+                      </el-popover>
                     </div>
+
+                  </div>
+                  <div class="sub-sub-dir-add" v-if="sub_dir_add_show && item3.id==active_dir.id">
+                    <input type="text" v-model="add_update_name" placeholder="请输入子项名称" />
+                    <i class="el-icon-success" @click="openSubSubDirUpdate(item3,item2)" style="color: #00BDA5;left: 263px;"></i>
+                    <i class="el-icon-error" style="color: #FF6E67; left: 289px"  @click="closeSubDirAdd"></i>
                   </div>
                   <!-- 三级目录 End -->
                 </div>
               </div>
-              <!-- 三级目录修改或新增 Start -->
-              <div class="sub-sub-dir-add" v-if="sub_dir_add_show && item2.id==active_dir.id">
-                <input type="text" v-model="add_update_name" placeholder="请输入专项名称" />
-                <i class="el-icon-success" v-show="sub_dir_add_update=='add'" @click="submitSubDir" style="left: 263px;" :class="{'active':add_update_name.length>0}"></i>
-                <i class="el-icon-success" v-show="sub_dir_add_update=='update'" @click="renameSubDir" style="color: #00BDA5;left: 263px;"></i>
-                <i class="el-icon-error" style="color: #FF6E67; left: 289px"  @click="closeSubDirAdd"></i>
-              </div>
-              <!-- 三级目录修改或新增 End -->
+
             </div>
           </div>
           <!-- 二级目录修改或新增 Start -->
@@ -106,20 +166,13 @@
         </div>
       </div>
       <!-- 目录 End -->
-      <!-- 一级目录修改或新增 Start -->
-      <div class="dir-add" v-if="main_dir_add_show">
-        <input type="text" v-model="add_update_name" placeholder="请输入专项名称" />
-        <i class="el-icon-success" v-show="sub_dir_add_update=='add'" @click="submitMainDir" style="left: 263px;" :class="{'active':add_update_name.length>0}"></i>
-        <i class="el-icon-success" v-show="sub_dir_add_update=='update'" @click="submitRenameMainDir" style="color: #00BDA5;left: 263px;"></i>
-        <i class="el-icon-error" style="color: #FF6E67; left: 289px"  @click="closeMainDirAdd"></i>
-      </div>
-      <!-- 一级目录修改或新增 End -->
 
     </div>
 </template>
 
 <script>
 import API from '@/api'
+import debounce from 'lodash.debounce'
 import {getDir, update, moveUpAndDown,save, deleteDir} from "../../../api/modules/question/question_manage";
 
 export default {
@@ -186,7 +239,7 @@ export default {
           },
         ],
         active_dir: -1,         // 激活的菜单
-        dir_type: -1,
+        dir_add_show: false,    // 控制新增一级菜单的显示
         add_update_name: "",    // 绑定修改或新增目录的目录名
         sub_dir_add_update: "",     //记录当前二级、三级目录输入框是用来修改还是新增{add || update}
         main_dir_add_show: false,   // 控制一级目录新增或修改的显示
@@ -225,6 +278,40 @@ export default {
     closeSubDirAdd() {
       this.sub_dir_add_show = false
       this.add_update_name = ""
+    },
+    openRenameSubDir(node) {
+      this.add_update_name = node.name
+      this.sub_dir_add_update = 'update'
+      this.openRenameSubSubDir(this.active_dir)
+    },
+    openRenameSubSubDir(node) {
+      this.add_update_name = node.name
+      this.sub_dir_add_show = true
+    },
+    openSubSubDirUpdate(node, prenode) {
+      if (this.add_update_name === "" || this.add_update_name === undefined || this.add_update_name === null) {
+        this.$message.warning("目录名不能为空")
+        return
+      }
+      save({
+        skillResourcesId: 113,
+        id: node.id,
+        parentId: prenode.id,
+        parentName: prenode.name,
+        name: this.add_update_name,
+        // type: 1,
+        // orderNum: this.menus.length
+      }).then(({data}) => {
+        if (data && data.code === 0) {
+          this.$message.success("修改成功")
+          this.sub_dir_add_show = false
+          // 新增之后调用初始化方法，重新请求目录
+          this.init()
+          this.add_update_name = ""
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
     },
     // 新增二、三级目录
     submitSubDir() {
@@ -272,7 +359,7 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 0) {
           this.$message.success("修改成功")
-          this.main_dir_add_show = false
+          this.sub_dir_add_show = false
           // 新增之后调用初始化方法，重新请求目录
           this.init()
         } else {
@@ -314,7 +401,7 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 0) {
           this.$message.success("新增成功")
-          this.main_dir_add_show = false
+          this.dir_add_show = false
           // 新增之后调用初始化方法，重新请求目录
           this.init()
           this.add_update_name = ""
@@ -369,7 +456,7 @@ export default {
     },
 
     //课程目录-上移下移   upAndDownFlag:排序状态调整：1上移2下移
-    async upOrDownSkillCourseDir(upAndDownFlag){
+    upOrDownSkillCourseDir: debounce(  async function (upAndDownFlag){
       let str= '';
       if(upAndDownFlag==1){
         str="上移";
@@ -380,16 +467,25 @@ export default {
         id:this.active_dir.id,
         upAndDownFlag:upAndDownFlag,
       }
-      const  { data } =  await moveUpAndDown(params)
+      const  { data } = await moveUpAndDown(params)
+      // const  { data } =  debounce( moveUpAndDown(params), 1000)()
       if (data && data.code === 0) {
         this.$message.success(str+"成功");
         this.init()
       }else{
         this.$message.error(str+"失败："+data.msg);
       }
-    },
+    }, 300),
     msclick_dir(dir){
       this.active_dir = dir
+      let mainDom = this.$refs[`main-ref-${dir.id}`]
+      if (mainDom !== null && mainDom !== undefined) {
+        mainDom[0].classList.toggle("collapse")
+      }
+      let subDom = this.$refs[`sub-ref-${dir.id}`]
+      if (subDom !== null && subDom !== undefined) {
+        subDom[0].classList.toggle("collapse")
+      }
     },
   }
 }
@@ -403,24 +499,32 @@ export default {
 
 .dir-wrapper {
   font-size: 14px;
-  margin-top: 16px;
+  //margin-top: 16px;
 }
 .main-dir {
   position: relative;
   display: flex;
   align-items: center;
   //background: #f9f9f9;
-  width: 325px;
+  width: 321px;
   height: 36px;
   .dropdown-icon-wrapper {
     position: absolute;
     width: 10px;
     left: 18px;
     margin-right: 14px;
+    display: flex;
+    justify-content: center;
+    transition: all .4s;
   }
   .dir-content {
     position: absolute;
     left: 42px;
+    width: 170px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow:ellipsis;
   }
   .operate-wrapper {
     position: absolute;
@@ -428,12 +532,15 @@ export default {
     width: 14px;
     height: 12px;
   }
+  &.collapse .dropdown-icon-wrapper {
+    transform: rotate(180deg);
+  }
 }
 .sub-dir {
   position: relative;
   display: flex;
   align-items: center;
-  width: 325px;
+  width: 321px;
   height: 36px;
   .dropdown-icon-wrapper {
     position: absolute;
@@ -444,6 +551,11 @@ export default {
   .dir-content {
     position: absolute;
     left: 52px;
+    width: 170px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow:ellipsis;
   }
   .operate-wrapper {
     position: absolute;
@@ -456,7 +568,7 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  width: 325px;
+  width: 321px;
   height: 36px;
   .dropdown-icon-wrapper {
     position: absolute;
@@ -467,6 +579,11 @@ export default {
   .dir-content {
     position: absolute;
     left: 62px;
+    width: 170px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow:ellipsis;
   }
   .operate-wrapper {
     position: absolute;
@@ -571,5 +688,14 @@ export default {
 
 .el-popover .my_el-popover{
   min-width: 50px;
+}
+
+.menu-spread {
+  transition: all .4s;
+  overflow: hidden;
+  max-height: fit-content;
+}
+.menu-spread.collapse {
+  max-height: 0;
 }
 </style>
