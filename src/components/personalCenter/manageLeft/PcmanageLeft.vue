@@ -173,7 +173,7 @@
 <script>
 import API from '@/api'
 import debounce from 'lodash.debounce'
-import {getDir, update, moveUpAndDown,save, deleteDir} from "../../../api/modules/question/question_manage";
+import {getDir, moveUpAndDown,save, deleteDir} from "../../../api/modules/question/question_manage";
 
 export default {
   name: "PcmanageLeft",
@@ -253,6 +253,10 @@ export default {
   mounted() {
   },
   components:{},
+
+  computed: {
+
+  },
 
   methods: {
     init() {
@@ -693,7 +697,7 @@ export default {
 .menu-spread {
   transition: all .4s;
   overflow: hidden;
-  max-height: fit-content;
+  max-height: 50vh;
 }
 .menu-spread.collapse {
   max-height: 0;
