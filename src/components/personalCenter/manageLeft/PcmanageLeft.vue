@@ -10,20 +10,11 @@
                 <img @click="upOrDownSkillCourseDir(2)" src="../../../../static/tuImg/xai@2x.png" alt="">
             </div>
         </div>
-      <!-- 新增专项 Start -->
-      <div style="margin-top: 16px">
-        <div class="dir-add" v-if="dir_add_show" >
-          <input type="text" v-model="add_update_name" placeholder="请输入专项名称" />
-          <i class="el-icon-success" @click="submitMainDir" style="left: 263px;" :class="{'active':add_update_name.length>0}"></i>
-          <i class="el-icon-error" style="color: #FF6E67; left: 289px"  @click="dir_add_show = false"></i>
-        </div>
-      </div>
-      <!-- 新增专项 End -->
-      <!-- 目录 Start -->
+
       <div class="dir-wrapper" v-if="menus.length > 0">
         <div class="main-dir-wrapper" v-for="(item1, index1) in menus">
           <!-- 一级目录 Start -->
-          <div :ref="'main-ref-' + item1.id" class="main-dir clearfix" :title="item1.name" :class="[{'active':item1.id==active_dir.id},{'collapse':item1.childList.length>0}]" @click="msclick_dir(item1)">
+          <div :ref="'main-ref-' + item1.id" class="main-dir clearfix" :title="item1.name" :class="[{'active':item1.id==active_dir.id},]" @click="msclick_dir(item1)">
             <!-- 可下拉图标 Start -->
             <div class="dropdown-icon-wrapper">
               <i v-if="item1.childList.length>0" class="el-icon-arrow-down"></i>
@@ -36,7 +27,7 @@
             <!-- 目录名称 End -->
             <!-- 操作按钮 Start -->
             <div class="operate-wrapper">
-              <img v-show="item1.id==active_dir.id"  v-popover::ref="'popover_'+item1.id" :src="require('../../../assets/images/menu.png')" alt="">
+              <img v-show="item1.id==active_dir.id" @click.stop  v-popover::ref="'popover_'+item1.id" :src="require('../../../assets/images/menu.png')" alt="">
               <el-popover
                 popper-class="my_el-popover"
                 :ref="'popover_'+item1.id"
@@ -69,7 +60,7 @@
           <div class="menu-spread" :ref="'sub-ref-'+item1.id"   v-if="item1.childList.length > 0" >
             <div class="sub-dir-wrapper" v-for="(item2, index2) in item1.childList">
               <!-- 二级目录 Start -->
-              <div class="sub-dir clearfix" :title="item2.name" :class="{'active':item2.id==active_dir.id}" @click="msclick_dir(item2,2)">
+              <div class="sub-dir clearfix" :title="item2.name" :class="{'active':item2.id==active_dir.id}" @click.stop="msclick_dir(item2,2)">
                 <div class="dropdown-icon-wrapper">
                   <i class="el-icon-arrow-down" v-if="show_sub_dir_icon_operate"></i>
                 </div>
@@ -78,7 +69,7 @@
                 </div>
                 <div class="operate-wrapper">
 <!--                  <img :src="require('../../../assets/images/menu.png')" v-if="show_sub_dir_icon_operate" alt="">-->
-                  <img v-show="item2.id==active_dir.id"  v-popover::ref="'popover_'+item2.id" :src="require('../../../assets/images/menu.png')" alt="">
+                  <img v-show="item2.id==active_dir.id" @click.stop  v-popover::ref="'popover_'+item2.id" :src="require('../../../assets/images/menu.png')" alt="">
                   <el-popover
                     popper-class="my_el-popover"
                     :ref="'popover_'+item2.id"
@@ -112,7 +103,7 @@
               <div v-if="item2.childList.length > 0">
                 <div class="sub-sub-dir-wrapper" v-for="(item3, index3) in item2.childList">
                   <!-- 三级目录 Start -->
-                  <div class="sub-sub-dir clearfix" :title="item3.name" :class="{'active':item3.id==active_dir.id}" @click="msclick_dir(item3,3)">
+                  <div class="sub-sub-dir clearfix" :title="item3.name" :class="{'active':item3.id==active_dir.id}" @click.stop="msclick_dir(item3,3)">
                     <div class="dropdown-icon-wrapper">
                       <i class="el-icon-arrow-down" v-if="show_sub_dir_icon_operate"></i>
                     </div>
@@ -166,6 +157,13 @@
         </div>
       </div>
       <!-- 目录 End -->
+      <!-- 新增专项 Start -->
+      <div class="dir-add" v-if="dir_add_show" >
+        <input type="text" v-model="add_update_name" placeholder="请输入专项名称" />
+        <i class="el-icon-success" @click="submitMainDir" style="left: 263px;" :class="{'active':add_update_name.length>0}"></i>
+        <i class="el-icon-error" style="color: #FF6E67; left: 289px"  @click="dir_add_show = false"></i>
+      </div>
+      <!-- 新增专项 End -->
 
     </div>
 </template>
@@ -292,7 +290,7 @@ export default {
       this.add_update_name = node.name
       this.sub_dir_add_show = true
     },
-    openSubSubDirUpdate(node, prenode) {
+    openSubSubDirUpdate: debounce(function (node, preNode) {
       if (this.add_update_name === "" || this.add_update_name === undefined || this.add_update_name === null) {
         this.$message.warning("目录名不能为空")
         return
@@ -316,10 +314,9 @@ export default {
           this.$message.error(data.msg)
         }
       })
-    },
+    }) ,
     // 新增二、三级目录
-    submitSubDir() {
-      console.log("add")
+    submitSubDir: debounce(function () {
       if (this.add_update_name === "" || this.add_update_name === undefined || this.add_update_name === null) {
         this.$message.warning("目录名不能为空")
         return
@@ -346,9 +343,9 @@ export default {
           this.$message.error(data.msg)
         }
       })
-    },
+    }) ,
     // 编辑专项目录名称
-    renameSubDir(preNode) {
+    renameSubDir: debounce(function (preNode) {
       if (this.add_update_name === "" || this.add_update_name === undefined || this.add_update_name === null) {
         this.$message.warning("目录名不能为空")
         return
@@ -370,7 +367,7 @@ export default {
           this.$message.error(data.msg)
         }
       })
-    },
+    }) ,
     // 打开新增一级目录
     openMainDirAdd(method) {
       if (method === "" || method === undefined || method === null) {
@@ -386,7 +383,7 @@ export default {
       this.add_update_name = ""
     },
     // 新增一级目录
-    submitMainDir() {
+    submitMainDir: debounce(function () {
       if (this.add_update_name === "" || this.add_update_name === undefined || this.add_update_name === null) {
         this.$message.warning("目录名不能为空")
         return
@@ -413,12 +410,12 @@ export default {
           this.$message.error(data.msg)
         }
       })
-    },
+    }) ,
     openRenameMainDir(node){
       this.add_update_name = node.name
       this.openMainDirAdd('update')
     },
-    submitRenameMainDir() {
+    submitRenameMainDir: debounce(function () {
       if (this.add_update_name === "" || this.add_update_name === undefined || this.add_update_name === null) {
         this.$message.warning("目录名不能为空")
         return
@@ -440,9 +437,9 @@ export default {
           this.$message.error(data.msg)
         }
       })
-    },
+    }, 300) ,
     // 删除专项目录
-    deleteMainDir(id) {
+    deleteMainDir: debounce(function (id) {
       this.$confirm("确定删除改目录吗？").then(() => {
         // this.$message.success("删除成功"+id)
         // this.init()
@@ -457,7 +454,7 @@ export default {
           }
         })
       })
-    },
+    }, 300) ,
 
     //课程目录-上移下移   upAndDownFlag:排序状态调整：1上移2下移
     upOrDownSkillCourseDir: debounce(  async function (upAndDownFlag){
@@ -484,6 +481,7 @@ export default {
       this.active_dir = dir
       let mainDom = this.$refs[`main-ref-${dir.id}`]
       if (mainDom !== null && mainDom !== undefined) {
+        console.log("click")
         mainDom[0].classList.toggle("collapse")
       }
       let subDom = this.$refs[`sub-ref-${dir.id}`]
@@ -519,6 +517,7 @@ export default {
     margin-right: 14px;
     display: flex;
     justify-content: center;
+    transform: rotate(180deg);
     transition: all .4s;
   }
   .dir-content {
@@ -537,7 +536,7 @@ export default {
     height: 12px;
   }
   &.collapse .dropdown-icon-wrapper {
-    transform: rotate(180deg);
+    transform: rotate(0deg);
   }
 }
 .sub-dir {
