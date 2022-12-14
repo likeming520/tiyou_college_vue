@@ -1,21 +1,17 @@
 .left-top{
     margin: 0;
-    margin-left: 12px;
-    margin-top: 10px;
+    margin-left: 19px;
+    margin-top: 12px;
     font-size: 10px;  //可以去除app.vue的干扰
     display: flex;
     justify-content: space-between;
 }
 .right-icon{
-    padding-right: 50px;
+    padding-right: 25px;
 }
 .left-top >>> .el-button--primary{
     background-color:#00BDA5;
-    width: 92px;
-    height: 28px;
     border-color: #00BDA5;
-    padding-top: 0px;
-    padding-bottom: 0px;
     padding:0;
 }
 img{
@@ -26,6 +22,126 @@ img{
     margin: 0 auto;
     width: 90%;
     background: #f8f8f8;
-    height: 1px;
+    height: 2px;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
+.left-content::-webkit-scrollbar-track{
+  background-color: white;
+}
+.left-content::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 2px;
+  background-color: white;
+}
+.left-content::-webkit-scrollbar-thumb {
+  background-color: #f1f1f1;
+}
+.left-content{
+  height: 825px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /*火狐浏览器滚动条设置*/
+  scrollbar-width:thin;
+  scrollbar-color:#f1f1f1 white;
+  /*图标收起*/
+  & >>> .el-icon-caret-right::before{
+    content: '\e6df';
+    font-size: 12px;
+    color: #A5A5A5;
+    font-weight: bold;
+    width: 40px;
+    text-align: center;
+    display: inline-block;
+  }
+
+  /*图标展开*/
+  & >>> .el-tree-node__expand-icon.expanded{
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  /*菜单项*/
+  & >>> .el-tree-node__content{
+    height: 36px;
+    font-size: 14px;
+    font-family: PingFang SC, PingFang SC-Regular;
+    font-weight: 400;
+    text-align: left;
+    color: #393939;
+    line-height: 40px;
+  }
+
+  & >>> .is-leaf.el-icon-caret-right::before{
+    content: '';
+    font-size: 12px;
+    color: #A5A5A5;
+    font-weight: bold;
+  }
+
+  /*选中的样式*/
+  & >>> .el-tree-node.is-current > .el-tree-node__content {
+    background: #F9F9F9;
+  }
+  & >>> .el-tree-node.is-current > .el-tree-node__content {
+    .el-dropdown {
+      display: block;
+    }
+  }
+  /*鼠标悬浮的样式*/
+  & >>> .el-tree-node__content:hover {
+    background: #F9F9F9;
+  }
+  & >>> .el-dropdown {
+    margin: 0;
+    padding: 0;
+    width: 14px;
+    height: 18px;
+    display: none;
+  }
+  & >>> .el-tree-node__content:hover {
+    .el-dropdown {
+      display: block;
+    }
+  }
+}
+
+.slot-container{
+  display: flex;
+  margin-left: -12px;
+  width: 80%;
+  position: relative;
+  .label{
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 235px;
+  }
+  .operation{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 14px;
+    height: 12px;
+  }
+  .input{
+    & input {
+
+      height: 28px;
+      padding: 0 7px;
+      background: #ffffff;
+      border: 1px solid #00bda5;
+      border-radius: 4px;
+      outline: none;
+      font-size: 14px;
+      font-family: PingFang SC, PingFang SC-Regular;
+      font-weight: 400;
+      text-align: left;
+      color: #393939;
+      line-height: 40px;
+    }
+  }
+}
+
+
+

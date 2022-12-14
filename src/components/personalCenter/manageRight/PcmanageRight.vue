@@ -72,22 +72,16 @@ export default {
     //初始化资源列表
     this.listPageSkillQuestionsByDirId();
   },
-  props:{
-    PcmanageRight:{
-      type:Array,
-      default(){
-        return[]
-      }
-    }
-  },
   data() {
     return {
       showAddQuestions:false,
-      question: {},
+      question: null,
       // currentPage: 1, //当前页数 ，默认为1
       // pageSize: 3, // 每页显示数量
       list: [], //当前页显示内容
       showEditQuestion: false,
+      imghost:this.$imghost,
+      questionDescription:''
     };
   },
   computed: {
@@ -97,9 +91,6 @@ export default {
         return API.common.getUrl(encodeURI(name))
       }
     },
-  },
-  mounted() { //mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
-    this.header.token=this.$cookie.get('access_Token')
   },
   methods:{
     openAddQuestions(){
@@ -113,7 +104,6 @@ export default {
       this.init()
     },
     init(){
-      //TODO:请求获取数据列表
       this.listPageSkillQuestionsByDirId();
     },
     del(id) {
@@ -161,7 +151,7 @@ export default {
     confirmEditQuestion() {
       this.init()
       this.showEditQuestion = false
-    }
+    },
   },
 }
 </script>

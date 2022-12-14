@@ -1,5 +1,5 @@
 <template>
-  <div class="base_addQuestions">
+  <div class="base_addQuestions" v-if="question">
     <el-dialog title="编辑试题" width="900px" top="84px" :visible.sync="show"
                :close-on-click-modal="false"
                 :close-on-press-escape="false"
@@ -65,7 +65,7 @@
                                      v-if="question.questionType!==4"
                                      @change="check($event,index)"
                         >
-                        <span style="color: #252525;" v-if="question.questionType===1|question.questionType===2">
+                        <span style="color: #252525;" v-if="question.questionType===1||question.questionType===2">
                           {{ String.fromCharCode(97 + index).toUpperCase() }}.
                         </span>
                         </el-checkbox>
@@ -135,9 +135,6 @@ export default {
       uploadFileData: {"fileFrom": 12},
       header: {token: ''},
     }
-  },
-  mounted() { //mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
-    this.header.token = this.$cookie.get('access_Token')
   },
   computed: {
     webUrl() {
