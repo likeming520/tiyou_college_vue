@@ -50,7 +50,7 @@
             <i v-if="name&&oper==='edit'" class="el-icon-success" @click.stop="saveEdit"
                style="color: #00BDA5;font-size: 18px;margin-left: 4px"></i>
             <i v-if="!name" class="el-icon-success"
-               style="color: #767676;font-size: 18px;margin-left: 4px"></i>
+               style="color: #b8b8b8;font-size: 18px;margin-left: 4px;cursor: not-allowed"></i>
             <i v-if="oper==='addRoot'" class="el-icon-error" @click.stop="deleteRootLast"
                style="color: #FF6E67;font-size: 18px;margin-left: 2px"></i>
             <i v-if="oper==='addChildren'" class="el-icon-error" @click.stop="deleteChildrenLast"
@@ -175,7 +175,7 @@ export default {
         this.oper = ''
       })
     },
-    nodeClickHandle(data, node) {
+    nodeClickHandle(data) {
       if (!this.oper) {
         this.activeTreeNode = data
       }
